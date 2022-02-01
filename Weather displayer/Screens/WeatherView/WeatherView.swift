@@ -36,6 +36,7 @@ struct WeatherView: View {
                 
                 Button {
                     print(vm.weatherDataArray)
+                    print("<<< \(vm.weatherDataArray.days!.count)")
                 } label: {
                     WeatherButtonView(title: "Change city")
                         .shadow(radius: 5)

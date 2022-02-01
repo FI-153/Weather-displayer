@@ -10,15 +10,15 @@ import UIKit
 struct Day: Identifiable, Decodable {
     
     let id = UUID()
-    var datetime:String?
-    var temp:Float?
-    var precip:Float?
-    var description:String?
+    var datetime:		String?
+    var temp:			Float?
+    var precip:		Float?
+    var description:	String?
     
     private init(datetime: String, temp: Float, precip: Float, description: String) {
-        self.datetime = datetime
-        self.temp = temp
-        self.precip = precip
+        self.datetime = 	datetime
+        self.temp = 		temp
+        self.precip = 	precip
         self.description = description
     }
     
@@ -30,9 +30,9 @@ struct Day: Identifiable, Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         do {
-            self.datetime = try container.decode(String.self, forKey: CodingKeys.datetime)
-            self.temp = try container.decode(Float.self, forKey: CodingKeys.temp)
-            self.precip = try container.decode(Float.self, forKey: CodingKeys.precip)
+            self.datetime = 	try container.decode(String.self, forKey: CodingKeys.datetime)
+            self.temp = 		try container.decode(Float.self, forKey: CodingKeys.temp)
+            self.precip = 	try container.decode(Float.self, forKey: CodingKeys.precip)
             self.description = try container.decode(String.self, forKey: CodingKeys.description)
         }catch let error {
             print(error)
@@ -49,23 +49,23 @@ struct Day: Identifiable, Decodable {
 struct WeatherData: Identifiable, Decodable {
     
     let id = UUID()
-    var resolvedAddress:String?
-    var days:[Day]?
+    var resolvedAddress:	String?
+    var days:				[Day]?
     
     private enum CodingKeys: String, CodingKey {
         case resolvedAddress, days
     }
     
     private init(resolvedAddress:String, days:[Day]){
-        self.resolvedAddress = resolvedAddress
-        self.days = days
+        self.resolvedAddress = 	resolvedAddress
+        self.days = 			days
     }
     
     init(from decoder: Decoder) throws {
         do {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.resolvedAddress = try container.decode(String.self, forKey: CodingKeys.resolvedAddress)
-            self.days = try container.decode([Day].self, forKey: CodingKeys.days)
+            let container = 		try decoder.container(keyedBy: CodingKeys.self)
+            self.resolvedAddress = 	try container.decode(String.self, forKey: CodingKeys.resolvedAddress)
+            self.days = 			try container.decode([Day].self, forKey: CodingKeys.days)
         }catch let error {
             print(error)
         }
