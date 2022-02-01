@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct Weather_displayerApp: App {
-    var body: some Scene {
-        WindowGroup {
-            WeatherView()
-        }
-    }
+	var body: some Scene {
+		WindowGroup {
+			WeatherView()
+		}
+	}
 }
