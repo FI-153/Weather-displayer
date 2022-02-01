@@ -11,6 +11,7 @@
 		A17C6F7727A9B19400AC62AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C6F7627A9B19400AC62AA /* ContentView.swift */; };
 		A17C6F7927A9B19500AC62AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A17C6F7827A9B19500AC62AA /* Assets.xcassets */; };
 		A17C6F7C27A9B19500AC62AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A17C6F7B27A9B19500AC62AA /* Preview Assets.xcassets */; };
+		A17C6F8327A9B1CA00AC62AA /* WeatherButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C6F8227A9B1CA00AC62AA /* WeatherButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		A17C6F7627A9B19400AC62AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A17C6F7827A9B19500AC62AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A17C6F7B27A9B19500AC62AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A17C6F8227A9B1CA00AC62AA /* WeatherButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				A17C6F7427A9B19400AC62AA /* Weather_displayerApp.swift */,
 				A17C6F7627A9B19400AC62AA /* ContentView.swift */,
+				A17C6F8227A9B1CA00AC62AA /* WeatherButtonView.swift */,
 				A17C6F7827A9B19500AC62AA /* Assets.xcassets */,
 				A17C6F7A27A9B19500AC62AA /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A17C6F7727A9B19400AC62AA /* ContentView.swift in Sources */,
+				A17C6F8327A9B1CA00AC62AA /* WeatherButtonView.swift in Sources */,
 				A17C6F7527A9B19400AC62AA /* Weather_displayerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
