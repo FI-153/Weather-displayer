@@ -25,20 +25,28 @@ struct WeatherView: View {
 				mainWeatherIcon(imageName: "cloud.sun.fill", temperature: 76, description: "Cloudy with a Chance of Meatballs")
 				
 				//Weather day by day
-				HStack(spacing: 20){
-					WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 74, precipitaionChance: 0)
-					WeatherDayView(dayOfWeek: "WED", imageName: "sun.max.fill", temperature: 80, precipitaionChance: 0)
-					WeatherDayView(dayOfWeek: "THU", imageName: "wind.snow", temperature: 76, precipitaionChance: 30)
-					WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.bolt.fill", temperature: 76, precipitaionChance: 40)
-					WeatherDayView(dayOfWeek: "SAT", imageName: "snow", temperature: 76, precipitaionChance: 0)
-					WeatherDayView(dayOfWeek: "SUN", imageName: "sunset.fill", temperature: 76, precipitaionChance: 60)
+//				HStack(spacing: 20){
+//					WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 74, precipitaionChance: 0)
+//					WeatherDayView(dayOfWeek: "WED", imageName: "sun.max.fill", temperature: 80, precipitaionChance: 0)
+//					WeatherDayView(dayOfWeek: "THU", imageName: "wind.snow", temperature: 76, precipitaionChance: 30)
+//					WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.bolt.fill", temperature: 76, precipitaionChance: 40)
+//					WeatherDayView(dayOfWeek: "SAT", imageName: "snow", temperature: 76, precipitaionChance: 0)
+				//					WeatherDayView(dayOfWeek: "SUN", imageName: "sunset.fill", temperature: 76, precipitaionChance: 60)
+				//				}
+				
+				ScrollView(.horizontal, showsIndicators: false){
+					HStack(spacing: 20){
+						ForEach(vm.weatherDataArray.days!){ day in
+							WeatherDayView(dayOfWeek: "01/01", imageName: WeatherDataIcons.icons[day.conditions!] ?? "", temperature: day.temp!, precipitaionChance: day.precip!)
+						}
+					}
 				}
+				.padding(.horizontal)
 				
 				Spacer()
 				
 				Button {
 					print(vm.weatherDataArray)
-					print("<<< \(vm.weatherDataArray.days!.count)")
 				} label: {
 					WeatherButtonView(title: "Change city")
 						.shadow(radius: 5)
@@ -65,8 +73,8 @@ struct ContentView_Previews: PreviewProvider {
 struct WeatherDayView: View {
 	var dayOfWeek:			String;
 	var imageName:			String;
-	var temperature:		Int;
-	var precipitaionChance:	Int;
+	var temperature:		Float;
+	var precipitaionChance:	Float;
 	
 	var body: some View {
 		VStack{
@@ -81,13 +89,13 @@ struct WeatherDayView: View {
 				.aspectRatio(contentMode: .fit)
 				.frame(width: 40, height: 40)
 			
-			Text(String(self.temperature) + "°")
-				.font(.title)
+			Text(String(self.temperature) + "°C")
+				.font(.title3)
 				.foregroundColor(.white)
 			
 			VStack{
 				if precipitaionChance > 0 {
-					Text(String(self.precipitaionChance) + "%")
+					Text(String(Int(self.precipitaionChance)) + "%")
 						.font(.headline)
 						.foregroundColor(.secondary)
 				}
