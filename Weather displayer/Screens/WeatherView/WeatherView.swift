@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct WeatherView: View {
+    @State private var vm = WeatherViewModel()
+    
     var body: some View {
         ZStack {
             backgroundView()
@@ -19,7 +21,6 @@ struct ContentView: View {
                 
                 //Current weather
                 mainWeatherIcon(imageName: "cloud.sun.fill", temperature: 76)
-                
                 
                 //Weather day by day
                 HStack(spacing: 20){
@@ -34,7 +35,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    
+                    print(vm.weatherDataArray)
                 } label: {
                     WeatherButtonView(title: "Change city")
                         .shadow(radius: 5)
@@ -49,7 +50,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        WeatherView()
     }
 }
 
