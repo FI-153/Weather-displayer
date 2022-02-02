@@ -18,7 +18,7 @@ struct MainWeatherIcon: View {
 			Image(systemName: self.imageName)
 				.renderingMode(.original)
 				.resizable()
-				.aspectRatio(contentMode: .fit)
+				.scaledToFit()
 				.frame(width: 150, height: 150)
 				.shadow(radius: 10)
 			
@@ -26,13 +26,14 @@ struct MainWeatherIcon: View {
 				.font(.largeTitle)
 				.fontWeight(.bold)
 				.foregroundColor(.white)
+				.padding(.bottom)
 			
 			Text("\"" + description + "\"")
 				.font(.title2)
 				.fontWeight(.semibold)
 				.foregroundColor(.secondary)
-				.padding()
+				.padding(.bottom)
 		}
-		.padding(.bottom, 40)
+		.padding()
 	}
 }
