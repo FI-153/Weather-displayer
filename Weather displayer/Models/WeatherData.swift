@@ -44,8 +44,13 @@ struct Day: Identifiable, Decodable {
 	
 	///Mock data to be used during development
 	static let mockData = [
-		Day(datetime: "date", temp: 8.1, precip: 0, conditions: "cloudy", description: "Desctiption of weather data"),
-		Day(datetime: "date2", temp: 9.5, precip: 1, conditions: "snow", description: "Desctiption of weather data2")
+		Day(datetime: "date1", temp: 8.1, precip: 0, conditions: "Cloudy", description: "Desctiption of weather data"),
+		Day(datetime: "date2", temp: 9.5, precip: 90, conditions: "Rain", description: "Desctiption of weather data2"),
+		Day(datetime: "date3", temp: 10, precip: 0, conditions: "Partly-cloudy-day", description: "Desctiption of weather data2"),
+		Day(datetime: "date4", temp: 21, precip: 0, conditions: "Cloudy", description: "Desctiption of weather data2"),
+		Day(datetime: "date5", temp: -2, precip: 45, conditions: "Rain", description: "Desctiption of weather data2"),
+		Day(datetime: "date6", temp: 4.1, precip: 0, conditions: "Partly-cloudy-day", description: "Desctiption of weather data2"),
+		Day(datetime: "date6", temp: 4.1, precip: 0, conditions: "Partly-cloudy-day", description: "Desctiption of weather data2")
 	]
 }
 

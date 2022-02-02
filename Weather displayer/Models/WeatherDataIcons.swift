@@ -9,14 +9,14 @@ import Foundation
 
 struct WeatherDataIcons{
 	static let icons: [String : String] = [
-		"snow"				: "snow",
-		"rain"				: "cloud.rain.fill",
-		"fog"				: "cloud.fog.fill",
-		"wind"				: "wind",
-		"cloudy"				: "cloud.fill",
-		"partly-cloudy-day"		: "cloud.sun.fill",
-		"partly-cloudy-night"	: "cloud.moon.fill",
-		"clear-day"			: "sun.max.fill",
-		"clear-night"			: "moon.fill"
+		"Snow"				: "snow",
+		"Rain"				: "cloud.rain.fill",
+		"Fog"				: "cloud.fog.fill",
+		"Wind"				: "wind",
+		"Cloudy"				: "cloud.fill",
+		"Partly cloudy"		: "cloud.sun.fill",
+		"Partly-cloudy-night"	: "cloud.moon.fill",
+		"Clear-day"			: "sun.max.fill",
+		"Clear-night"			: "moon.fill"
 	]
 }
