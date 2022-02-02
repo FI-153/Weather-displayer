@@ -19,7 +19,7 @@ struct WeatherView: View {
 				Spacer()
 				
 				//title
-				CityTextView(cityname: vm.locationDetails)
+				CityTextView(cityname: vm.cityname, provinceAndCountry: vm.provinceAndCountry)
 				
 				//Current weather
 				if

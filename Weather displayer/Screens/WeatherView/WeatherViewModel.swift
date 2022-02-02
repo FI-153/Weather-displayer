@@ -10,7 +10,8 @@ import Combine
 
 class WeatherViewModel: ObservableObject {
 	
-	@Published var locationDetails:String = 	WeatherData.mockData.resolvedAddress!
+	@Published var cityname:String = 			WeatherData.mockData.cityname!
+	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
 	@Published var todayWeather:Day = 		Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
 	
@@ -31,10 +32,11 @@ class WeatherViewModel: ObservableObject {
 			
 			guard let self = self else { return }
 			
-			self.weatherData = 	receivedWeather
-			self.locationDetails = receivedWeather.resolvedAddress!
-			self.todayWeather =	receivedWeather.days!.first!
-			self.nextDays = 		receivedWeather.days!
+			self.weatherData = 		receivedWeather
+			self.cityname = 			receivedWeather.cityname!
+			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
+			self.todayWeather =		receivedWeather.days!.first!
+			self.nextDays = 			receivedWeather.days!
 			
 		}
 		.store(in: &cancellables)

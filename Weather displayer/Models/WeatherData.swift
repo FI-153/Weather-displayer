@@ -65,6 +65,8 @@ struct WeatherData: Identifiable, Decodable {
 	
 	let id = UUID()
 	var resolvedAddress:	String?
+	var cityname:			String?
+	var provinceAndCountry: String?
 	var days:				[Day]?
 	
 	private enum CodingKeys: String, CodingKey {
@@ -72,20 +74,44 @@ struct WeatherData: Identifiable, Decodable {
 	}
 	
 	private init(resolvedAddress:String, days:[Day]){
-		self.resolvedAddress = 	resolvedAddress
-		self.days = 			days
+		self.resolvedAddress = 		resolvedAddress
+		self.cityname =			extractCityName(from: resolvedAddress)
+		self.provinceAndCountry = 	extractProvinceAndCountry(from: resolvedAddress)
+		self.days = 				days
 	}
 	
 	init(from decoder: Decoder) throws {
 		do {
-			let container = 		try decoder.container(keyedBy: CodingKeys.self)
-			self.resolvedAddress = 	try container.decode(String.self, forKey: CodingKeys.resolvedAddress)
-			self.days = 			try container.decode([Day].self, forKey: CodingKeys.days)
+			let container = 			try decoder.container(keyedBy: CodingKeys.self)
+			self.resolvedAddress = 		try container.decode(String.self, forKey: CodingKeys.resolvedAddress)
+			self.cityname =			extractCityName(from: resolvedAddress!)
+			self.provinceAndCountry = 	extractProvinceAndCountry(from: resolvedAddress!)
+			self.days = 				try container.decode([Day].self, forKey: CodingKeys.days)
 		}catch let error {
 			print(error)
 		}
 	}
 	
+	func extractProvinceAndCountry(from address: String) -> String {
+		let separatedAddress = address.components(separatedBy: ", ")
+		
+		if !separatedAddress.isEmpty {
+			return separatedAddress[1] + ", " + separatedAddress[2]
+		}
+		
+		return ""
+	}
+	
+	func extractCityName(from address: String) -> String {
+		let separatedAddress = address.components(separatedBy: ", ")
+		
+		if !separatedAddress.isEmpty {
+			return separatedAddress[0]
+		}
+		
+		return ""
+	}
+	
 	///Mock data to be used during development
-	static let mockData = WeatherData(resolvedAddress: "Address1", days: Day.mockData)
+	static let mockData = WeatherData(resolvedAddress: "Address1, b, c", days: Day.mockData)
 }
