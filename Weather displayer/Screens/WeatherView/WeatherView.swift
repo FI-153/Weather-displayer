@@ -37,7 +37,7 @@ struct WeatherView: View {
 				//Weather next days
 				ScrollView(.horizontal, showsIndicators: false){
 					HStack(spacing: 20){
-						ForEach(vm.nextDays){ day in
+						ForEach(vm.nextDays.dropFirst()){ day in
 							
 							if
 								let dayOfTheWeek =	day.datetime,
