@@ -70,10 +70,10 @@ struct WeatherView: View {
 				Spacer()
 				
 			}
+			.blur(radius: vm.blurRadius)
 			
 			if vm.isLoading {
 				ZStack{
-					Color.white.ignoresSafeArea()
 					BackgroundView()
 					ProgressView()
 				}

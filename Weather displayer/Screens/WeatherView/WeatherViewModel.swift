@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SwiftUI
 
 class WeatherViewModel: ObservableObject {
 	
@@ -49,6 +50,10 @@ class WeatherViewModel: ObservableObject {
 			self.isLoading = isLoading
 		}
 		.store(in: &cancellables)
+	}
+	
+	var blurRadius: CGFloat {
+		isLoading ? 20 : 0
 	}
 	
 }
