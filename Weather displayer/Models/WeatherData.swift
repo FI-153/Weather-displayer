@@ -13,19 +13,19 @@ struct Day: Identifiable, Decodable {
 	var datetime:		String?
 	var temp:			Float?
 	var precip:		Float?
-	var conditions:	String?
+	var icon:	String?
 	var description:	String?
 	
-	private init(datetime: String, temp: Float, precip: Float, conditions:	String, description: String) {
+	private init(datetime: String, temp: Float, precip: Float, icon:	String, description: String) {
 		self.datetime = 	datetime
 		self.temp = 		temp
 		self.precip = 	precip
-		self.conditions =	conditions
+		self.icon =	icon
 		self.description = description
 	}
 	
 	private enum CodingKeys: String, CodingKey {
-		case datetime, temp, precip, conditions, description
+		case datetime, temp, precip, icon, description
 	}
 	
 	init(from decoder: Decoder) throws {
@@ -35,7 +35,7 @@ struct Day: Identifiable, Decodable {
 			self.datetime = 	try container.decode(String.self, forKey: CodingKeys.datetime)
 			self.temp = 		try container.decode(Float.self, forKey: CodingKeys.temp)
 			self.precip = 	try container.decode(Float.self, forKey: CodingKeys.precip)
-			self.conditions =	try container.decode(String.self, forKey: CodingKeys.conditions)
+			self.icon =	try container.decode(String.self, forKey: CodingKeys.icon)
 			self.description = try container.decode(String.self, forKey: CodingKeys.description)
 		}catch let error {
 			print(error)
@@ -44,13 +44,13 @@ struct Day: Identifiable, Decodable {
 	
 	///Mock data to be used during development
 	static let mockData = [
-		Day(datetime: "date1", temp: 8.1, precip: 0, conditions: "Cloudy", description: "Desctiption of weather data"),
-		Day(datetime: "date2", temp: 9.5, precip: 90, conditions: "Rain", description: "Desctiption of weather data2"),
-		Day(datetime: "date3", temp: 10, precip: 0, conditions: "Partly-cloudy-day", description: "Desctiption of weather data2"),
-		Day(datetime: "date4", temp: 21, precip: 0, conditions: "Cloudy", description: "Desctiption of weather data2"),
-		Day(datetime: "date5", temp: -2, precip: 45, conditions: "Rain", description: "Desctiption of weather data2"),
-		Day(datetime: "date6", temp: 4.1, precip: 0, conditions: "Partly-cloudy-day", description: "Desctiption of weather data2"),
-		Day(datetime: "date6", temp: 4.1, precip: 0, conditions: "Partly-cloudy-day", description: "Desctiption of weather data2")
+		Day(datetime: "date1", temp: 8.1, precip: 0, icon: "cloudy", description: "Desctiption of weather data"),
+		Day(datetime: "date2", temp: 9.5, precip: 90, icon: "rain", description: "Desctiption of weather data2"),
+		Day(datetime: "date3", temp: 10, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
+		Day(datetime: "date4", temp: 21, precip: 0, icon: "cloudy", description: "Desctiption of weather data2"),
+		Day(datetime: "date5", temp: -2, precip: 45, icon: "rain", description: "Desctiption of weather data2"),
+		Day(datetime: "date6", temp: 4.1, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
+		Day(datetime: "date6", temp: 4.1, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2")
 	]
 }
 

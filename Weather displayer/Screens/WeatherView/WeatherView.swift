@@ -23,7 +23,7 @@ struct WeatherView: View {
 				
 				//Current weather
 				if
-					let conditions = vm.todayWeather.conditions,
+					let conditions = vm.todayWeather.icon,
 					let temparature = vm.todayWeather.temp,
 					let description = vm.todayWeather.description
 				{
@@ -40,7 +40,7 @@ struct WeatherView: View {
 						ForEach(vm.nextDays){ day in
 							
 							if
-								let conditions = day.conditions,
+								let conditions = day.icon,
 								let temperature = day.temp,
 								let precipitation = day.precip
 							{
