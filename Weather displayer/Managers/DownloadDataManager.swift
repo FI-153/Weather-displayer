@@ -13,6 +13,9 @@ class DownloadDataManager {
 	///Publishes all downloaded locations
 	@Published var downloadedData:WeatherData = WeatherData.mockData
 	
+	///Checks if the downloader is downloading Data
+	@Published var isLoading:Bool = true
+	
 	///Singleton instance of the class
 	static let shared = DownloadDataManager()
 	private init(){
@@ -38,8 +41,8 @@ class DownloadDataManager {
 			.sink { [weak self] receivedWeather in
 				guard let self = self else { return }
 				
-				self.downloadedData = receivedWeather
-				
+				self.downloadedData = 	receivedWeather
+				self.isLoading = 		false
 			}
 			.store(in: &cancellables)
 		

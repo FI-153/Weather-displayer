@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherView: View {
-	@State private var vm = WeatherViewModel()
+	@StateObject private var vm = WeatherViewModel()
 	
 	var body: some View {
 		ZStack {
@@ -23,14 +23,14 @@ struct WeatherView: View {
 				
 				//Current weather
 				if
-					let conditions = vm.todayWeather.icon,
-					let temparature = vm.todayWeather.temp,
-					let description = vm.todayWeather.description
+					let conditions = 	vm.todayWeather.icon,
+					let temparature = 	vm.todayWeather.temp,
+					let description = 	vm.todayWeather.description
 				{
 					MainWeatherIcon(
-						imageName: WeatherDataIcons.icons[conditions] ?? "",
-						temperature: temparature,
-						description: description
+						imageName: 	WeatherDataIcons.icons[conditions] ?? "",
+						temperature: 	temparature,
+						description: 	description
 					)
 				}
 				
@@ -40,9 +40,9 @@ struct WeatherView: View {
 						ForEach(vm.nextDays){ day in
 							
 							if
-								let conditions = day.icon,
-								let temperature = day.temp,
-								let precipitation = day.precip
+								let conditions = 	day.icon,
+								let temperature = 	day.temp,
+								let precipitation = 	day.precip
 							{
 								WeatherDayView(
 									dayOfWeek: "01/01",
@@ -68,6 +68,14 @@ struct WeatherView: View {
 				
 				Spacer()
 				
+			}
+			
+			if vm.isLoading {
+				ZStack{
+					Color.white.ignoresSafeArea()
+					BackgroundView()
+					ProgressView()
+				}
 			}
 		}
 	}

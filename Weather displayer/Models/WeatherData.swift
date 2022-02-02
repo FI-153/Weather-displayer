@@ -13,15 +13,15 @@ struct Day: Identifiable, Decodable {
 	var datetime:		String?
 	var temp:			Float?
 	var precip:		Float?
-	var icon:	String?
+	var icon:			String?
 	var description:	String?
 	
 	private init(datetime: String, temp: Float, precip: Float, icon:	String, description: String) {
 		self.datetime = 	datetime
 		self.temp = 		temp
 		self.precip = 	precip
-		self.icon =	icon
-		self.description = description
+		self.icon =		icon
+		self.description =	description
 	}
 	
 	private enum CodingKeys: String, CodingKey {
@@ -35,7 +35,7 @@ struct Day: Identifiable, Decodable {
 			self.datetime = 	try container.decode(String.self, forKey: CodingKeys.datetime)
 			self.temp = 		try container.decode(Float.self, forKey: CodingKeys.temp)
 			self.precip = 	try container.decode(Float.self, forKey: CodingKeys.precip)
-			self.icon =	try container.decode(String.self, forKey: CodingKeys.icon)
+			self.icon =		try container.decode(String.self, forKey: CodingKeys.icon)
 			self.description = try container.decode(String.self, forKey: CodingKeys.description)
 		}catch let error {
 			print(error)
