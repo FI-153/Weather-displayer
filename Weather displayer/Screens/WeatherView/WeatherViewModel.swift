@@ -9,7 +9,12 @@ import UIKit
 import Combine
 
 class WeatherViewModel: ObservableObject {
-	@Published var weatherDataArray:WeatherData = WeatherData.mockData
+	
+	@Published var locationDetails:String = WeatherData.mockData.resolvedAddress!
+	@Published var todayWeather:Day = Day.mockData.first!
+	@Published var nextDays:[Day] = Day.mockData
+	
+	@Published var weatherData:WeatherData = WeatherData.mockData
 	
 	private let downloadDataManager = DownloadDataManager.shared
 	private var cancellables = Set<AnyCancellable>()
@@ -20,7 +25,13 @@ class WeatherViewModel: ObservableObject {
 	
 	func addSubscriberToWeatherDataArray(){
 		downloadDataManager.$downloadedData.sink { receivedWeather in
-			self.weatherDataArray = receivedWeather
+			
+			self.weatherData = receivedWeather
+			
+			self.locationDetails = receivedWeather.resolvedAddress!
+			self.todayWeather = receivedWeather.days!.first!
+			self.nextDays = receivedWeather.days!
+			
 		}
 		.store(in: &cancellables)
 	}

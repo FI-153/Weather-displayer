@@ -19,25 +19,39 @@ struct WeatherView: View {
 				Spacer()
 				
 				//title
-				cityTextView(cityname: "Cupertino, CA")
+				cityTextView(cityname: vm.locationDetails)
 				
 				//Current weather
-				mainWeatherIcon(imageName: "cloud.sun.fill", temperature: 76, description: "Cloudy with a Chance of Meatballs")
+				if
+					let conditions = vm.todayWeather.conditions,
+					let temparature = vm.todayWeather.temp,
+					let description = vm.todayWeather.description
+				{
+					mainWeatherIcon(
+						imageName: WeatherDataIcons.icons[conditions] ?? "",
+						temperature: temparature,
+						description: description
+					)
+				}
 				
-				//Weather day by day
-//				HStack(spacing: 20){
-//					WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 74, precipitaionChance: 0)
-//					WeatherDayView(dayOfWeek: "WED", imageName: "sun.max.fill", temperature: 80, precipitaionChance: 0)
-//					WeatherDayView(dayOfWeek: "THU", imageName: "wind.snow", temperature: 76, precipitaionChance: 30)
-//					WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.bolt.fill", temperature: 76, precipitaionChance: 40)
-//					WeatherDayView(dayOfWeek: "SAT", imageName: "snow", temperature: 76, precipitaionChance: 0)
-				//					WeatherDayView(dayOfWeek: "SUN", imageName: "sunset.fill", temperature: 76, precipitaionChance: 60)
-				//				}
-				
+				//Weather next days
 				ScrollView(.horizontal, showsIndicators: false){
 					HStack(spacing: 20){
-						ForEach(vm.weatherDataArray.days!){ day in
-							WeatherDayView(dayOfWeek: "01/01", imageName: WeatherDataIcons.icons[day.conditions!] ?? "", temperature: day.temp!, precipitaionChance: day.precip!)
+						ForEach(vm.nextDays){ day in
+							
+							if
+								let conditions = day.conditions,
+								let temperature = day.temp,
+								let precipitation = day.precip
+							{
+								WeatherDayView(
+									dayOfWeek: "01/01",
+									imageName: WeatherDataIcons.icons[conditions] ?? "",
+									temperature: temperature,
+									precipitaionChance: precipitation
+								)
+							}
+							
 						}
 					}
 				}
@@ -46,7 +60,7 @@ struct WeatherView: View {
 				Spacer()
 				
 				Button {
-					print(vm.weatherDataArray)
+					print(vm.nextDays)
 				} label: {
 					WeatherButtonView(title: "Change city")
 						.shadow(radius: 5)
@@ -129,7 +143,7 @@ struct cityTextView: View {
 
 struct mainWeatherIcon: View {
 	var imageName:		String
-	var temperature:	Int
+	var temperature:	Float
 	var description:	String
 	
 	var body: some View {
@@ -150,6 +164,7 @@ struct mainWeatherIcon: View {
 				.font(.title2)
 				.fontWeight(.semibold)
 				.foregroundColor(.secondary)
+				.padding()
 		}
 		.padding(.bottom, 40)
 	}
