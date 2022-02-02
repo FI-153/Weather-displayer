@@ -40,12 +40,13 @@ struct WeatherView: View {
 						ForEach(vm.nextDays){ day in
 							
 							if
+								let dayOfTheWeek =	day.datetime,
 								let conditions = 	day.icon,
 								let temperature = 	day.temp,
 								let precipitation = 	day.precip
 							{
 								WeatherDayView(
-									dayOfWeek: "01/01",
+									dayOfWeek: dayOfTheWeek,
 									imageName: WeatherDataIcons.icons[conditions] ?? "",
 									temperature: temperature,
 									precipitaionChance: precipitation

@@ -17,7 +17,7 @@ struct Day: Identifiable, Decodable {
 	var description:	String?
 	
 	private init(datetime: String, temp: Float, precip: Float, icon:	String, description: String) {
-		self.datetime = 	datetime
+		self.datetime = 	extractDate(date: datetime)
 		self.temp = 		temp
 		self.precip = 	precip
 		self.icon =		icon
@@ -32,7 +32,8 @@ struct Day: Identifiable, Decodable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		do {
-			self.datetime = 	try container.decode(String.self, forKey: CodingKeys.datetime)
+			//self.datetime = 	try container.decode(String.self, forKey: CodingKeys.datetime)
+			self.datetime =	extractDate(date: try container.decode(String.self, forKey: CodingKeys.datetime))
 			self.temp = 		try container.decode(Float.self, forKey: CodingKeys.temp)
 			self.precip = 	try container.decode(Float.self, forKey: CodingKeys.precip)
 			self.icon =		try container.decode(String.self, forKey: CodingKeys.icon)
@@ -42,15 +43,21 @@ struct Day: Identifiable, Decodable {
 		}
 	}
 	
+	func extractDate(date: String) -> String{
+		let separatedDate = date.components(separatedBy: "-")
+		
+		return separatedDate[2] + "/" + separatedDate[1]
+	}
+	
 	///Mock data to be used during development
 	static let mockData = [
-		Day(datetime: "date1", temp: 8.1, precip: 0, icon: "cloudy", description: "Desctiption of weather data"),
-		Day(datetime: "date2", temp: 9.5, precip: 90, icon: "rain", description: "Desctiption of weather data2"),
-		Day(datetime: "date3", temp: 10, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
-		Day(datetime: "date4", temp: 21, precip: 0, icon: "cloudy", description: "Desctiption of weather data2"),
-		Day(datetime: "date5", temp: -2, precip: 45, icon: "rain", description: "Desctiption of weather data2"),
-		Day(datetime: "date6", temp: 4.1, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
-		Day(datetime: "date6", temp: 4.1, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2")
+		Day(datetime: "2021-02-01", temp: 8.1, precip: 0, icon: "cloudy", description: "Desctiption of weather data"),
+		Day(datetime: "2021-02-01", temp: 9.5, precip: 90, icon: "rain", description: "Desctiption of weather data2"),
+		Day(datetime: "2021-02-01", temp: 10, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
+		Day(datetime: "2021-02-01", temp: 21, precip: 0, icon: "cloudy", description: "Desctiption of weather data2"),
+		Day(datetime: "2021-02-01", temp: -2, precip: 45, icon: "rain", description: "Desctiption of weather data2"),
+		Day(datetime: "2021-02-01", temp: 4.1, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
+		Day(datetime: "2021-02-01", temp: 4.1, precip: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2")
 	]
 }
 
