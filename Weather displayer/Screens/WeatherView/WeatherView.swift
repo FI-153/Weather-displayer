@@ -61,7 +61,7 @@ struct WeatherView: View {
 				Spacer()
 				
 				Button {
-					print(vm.nextDays)
+					
 				} label: {
 					WeatherButtonView(title: "Change city")
 						.shadow(radius: 5)

@@ -10,10 +10,20 @@ import UIKit
 struct Day: Identifiable, Decodable {
 	
 	let id = UUID()
+	
+	///Date of the forecast, format dd/mm
 	var datetime:		String?
+	
+	///Avg temperature during the day
 	var temp:			Float?
+	
+	///Chances of precipitations
 	var precip:		Float?
+	
+	///Icon to be displayed (see WeatherDataIcons)
 	var icon:			String?
+	
+	///Description of the day's weather
 	var description:	String?
 	
 	private init(datetime: String, temp: Float, precip: Float, icon:	String, description: String) {
@@ -64,9 +74,14 @@ struct Day: Identifiable, Decodable {
 struct WeatherData: Identifiable, Decodable {
 	
 	let id = UUID()
+	
+	///Resolved address by the server, format cityname, province, country
 	var resolvedAddress:	String?
+	
 	var cityname:			String?
 	var provinceAndCountry: String?
+	
+	///Array of the weather of all downloaded days
 	var days:				[Day]?
 	
 	private enum CodingKeys: String, CodingKey {

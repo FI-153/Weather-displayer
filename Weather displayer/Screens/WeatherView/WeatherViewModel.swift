@@ -15,10 +15,7 @@ class WeatherViewModel: ObservableObject {
 	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
 	@Published var todayWeather:Day = 		Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
-	
 	@Published var isLoading:Bool = 			true
-	
-	@Published var weatherData:WeatherData = 	WeatherData.mockData
 	
 	private let downloadDataManager = 		DownloadDataManager.shared
 	private var cancellables = 				Set<AnyCancellable>()
@@ -33,7 +30,6 @@ class WeatherViewModel: ObservableObject {
 			
 			guard let self = self else { return }
 			
-			self.weatherData = 		receivedWeather
 			self.cityname = 			receivedWeather.cityname!
 			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
 			self.todayWeather =		receivedWeather.days!.first!
