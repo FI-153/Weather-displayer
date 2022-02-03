@@ -36,8 +36,8 @@ struct WeatherView: View {
 				
 				//Weather next days
 				ScrollView(.horizontal, showsIndicators: false){
-					HStack(spacing: 20){
-						ForEach(vm.nextDays.dropFirst()){ day in
+					HStack{
+						ForEach(vm.nextDays){ day in
 							
 							if
 								let dayOfTheWeek =	day.datetime,
@@ -49,7 +49,8 @@ struct WeatherView: View {
 									dayOfWeek: dayOfTheWeek,
 									imageName: WeatherDataIcons.icons[conditions] ?? "",
 									temperature: temperature,
-									precipitaionChance: precipitation
+									precipitaionChance: precipitation,
+									isSelected: day == vm.todayWeather
 								)
 							}
 							
@@ -70,15 +71,19 @@ struct WeatherView: View {
 				Spacer()
 				
 			}
+			#if !DEBUG
 			.blur(radius: vm.blurRadius)
 			.disabled(vm.isUiDisabled)
+			#endif
 			
+			#if !DEBUG
 			if vm.isLoading {
 				ZStack{
 					BackgroundView()
 					ProgressView()
 				}
 			}
+			#endif
 		}
 	}
 }

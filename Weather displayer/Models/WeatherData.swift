@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Day: Identifiable, Decodable {
+struct Day: Identifiable, Decodable, Equatable {
 	
 	let id = UUID()
 	
@@ -57,6 +57,10 @@ struct Day: Identifiable, Decodable {
 		let separatedDate = date.components(separatedBy: "-")
 		
 		return separatedDate[2] + "/" + separatedDate[1]
+	}
+	
+	static func == (lhs: Day, rhs: Day) -> Bool {
+		return lhs.id == rhs.id && lhs.id == rhs.id
 	}
 	
 	///Mock data to be used during development

@@ -14,60 +14,106 @@ struct WeatherDayView: View {
 	var temperature:		Float
 	var precipitaionChance:	Float
 	
+	var isSelected:Bool? = false
+	
 	var body: some View {
-		VStack{
-			Text(self.dayOfWeek)
-				.font(.callout)
-				.fontWeight(.semibold)
-				.foregroundColor(.white)
-			
-			Image(systemName: self.imageName)
-				.symbolRenderingMode(.multicolor)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.frame(width: 40, height: 40)
-			
-			Text(String(self.temperature) + "°C")
-				.font(.title3)
-				.foregroundColor(.white)
+		ZStack {
+				
+			Color.secondary.opacity(isSelected! ? 0.4 : 0.1)
 			
 			VStack{
-				if precipitaionChance > 0 {
-					Text(String(Int(self.precipitaionChance)) + "%")
-						.font(.headline)
-						.foregroundColor(.secondary)
+				Text(self.dayOfWeek)
+					.font(.callout)
+					.fontWeight(.semibold)
+					.foregroundColor(.white)
+				
+				Image(systemName: self.imageName)
+					.symbolRenderingMode(.multicolor)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.frame(width: 40, height: 40)
+				
+				Text(String(self.temperature) + "°C")
+					.font(.title3)
+					.foregroundColor(.white)
+				
+				VStack{
+					if precipitaionChance > 0 {
+						Text(String(Int(self.precipitaionChance)) + "%")
+							.font(.headline)
+							.foregroundColor(.secondary)
+					}
 				}
+				.frame(maxHeight: 20)
 			}
-			.frame(maxHeight: 20)
+		}
+		.frame(width: 80, height: 150)
+		.clipShape(RoundedRectangle(cornerRadius: 15))
+		.onTapGesture {
+			
 		}
 	}
 }
 
 struct WeatherDayView_Previews: PreviewProvider {
 	static var previews: some View {
-		ZStack {
-			BackgroundView()
-			
-			ScrollView(.horizontal) {
-				HStack {
-					WeatherDayView(
-						dayOfWeek: Day.mockData.first!.datetime!,
-						imageName: WeatherDataIcons.icons[Day.mockData.first!.icon!] ?? "",
-						temperature: Day.mockData.first!.temp!,
-						precipitaionChance: Day.mockData.first!.precip!
-					)
-						.padding()
-					
-					WeatherDayView(
-						dayOfWeek: Day.mockData.last!.datetime!,
-						imageName: WeatherDataIcons.icons[Day.mockData.last!.icon!] ?? "",
-						temperature: Day.mockData.last!.temp!,
-						precipitaionChance: Day.mockData.last!.precip!
-					)
-						.padding()
+		Group {
+			ZStack {
+				BackgroundView()
+				
+				ScrollView(.horizontal, showsIndicators: false){
+					HStack{
+						ForEach(Day.mockData){ day in
+							
+							if
+								let dayOfTheWeek =	day.datetime,
+								let conditions = 	day.icon,
+								let temperature = 	day.temp,
+								let precipitation = 	day.precip
+							{
+								WeatherDayView(
+									dayOfWeek: dayOfTheWeek,
+									imageName: WeatherDataIcons.icons[conditions] ?? "",
+									temperature: temperature,
+									precipitaionChance: precipitation,
+									isSelected: false
+								)
+							}
+							
+						}
+					}
 				}
+				.padding(.horizontal)
 			}
-			.padding()
+			
+			ZStack {
+				BackgroundView()
+				
+				ScrollView(.horizontal, showsIndicators: false){
+					HStack{
+						ForEach(Day.mockData){ day in
+							
+							if
+								let dayOfTheWeek =	day.datetime,
+								let conditions = 	day.icon,
+								let temperature = 	day.temp,
+								let precipitation = 	day.precip
+							{
+								WeatherDayView(
+									dayOfWeek: dayOfTheWeek,
+									imageName: WeatherDataIcons.icons[conditions] ?? "",
+									temperature: temperature,
+									precipitaionChance: precipitation,
+									isSelected: false
+								)
+							}
+							
+						}
+					}
+				}
+				.padding(.horizontal)
+			}
+			.preferredColorScheme(.dark)
 		}
 	}
 }
