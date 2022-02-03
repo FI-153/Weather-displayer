@@ -63,7 +63,7 @@ struct WeatherView: View {
 				Button {
 					
 				} label: {
-					WeatherButtonView(title: "Change city")
+					WeatherButtonView(title: "Change City")
 						.shadow(radius: 5)
 				}
 				
@@ -71,6 +71,7 @@ struct WeatherView: View {
 				
 			}
 			.blur(radius: vm.blurRadius)
+			.disabled(vm.isUiDisabled)
 			
 			if vm.isLoading {
 				ZStack{

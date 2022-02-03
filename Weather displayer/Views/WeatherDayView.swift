@@ -42,3 +42,32 @@ struct WeatherDayView: View {
 		}
 	}
 }
+
+struct WeatherDayView_Previews: PreviewProvider {
+	static var previews: some View {
+		ZStack {
+			BackgroundView()
+			
+			ScrollView(.horizontal) {
+				HStack {
+					WeatherDayView(
+						dayOfWeek: Day.mockData.first!.datetime!,
+						imageName: WeatherDataIcons.icons[Day.mockData.first!.icon!] ?? "",
+						temperature: Day.mockData.first!.temp!,
+						precipitaionChance: Day.mockData.first!.precip!
+					)
+						.padding()
+					
+					WeatherDayView(
+						dayOfWeek: Day.mockData.last!.datetime!,
+						imageName: WeatherDataIcons.icons[Day.mockData.last!.icon!] ?? "",
+						temperature: Day.mockData.last!.temp!,
+						precipitaionChance: Day.mockData.last!.precip!
+					)
+						.padding()
+				}
+			}
+			.padding()
+		}
+	}
+}

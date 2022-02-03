@@ -52,4 +52,8 @@ class WeatherViewModel: ObservableObject {
 		isLoading ? 20 : 0
 	}
 	
+	var isUiDisabled: Bool {
+		isLoading ? true : false
+	}
+	
 }
