@@ -23,9 +23,9 @@ struct WeatherView: View {
 				
 				//Current weather
 				if
-					let conditions = 	vm.todayWeather.icon,
-					let temparature = 	vm.todayWeather.temp,
-					let description = 	vm.todayWeather.description
+					let conditions = 	vm.todaysWeather.icon,
+					let temparature = 	vm.todaysWeather.temp,
+					let description = 	vm.todaysWeather.description
 				{
 					MainWeatherIcon(
 						imageName: 	WeatherDataIcons.icons[conditions] ?? "",
@@ -50,7 +50,7 @@ struct WeatherView: View {
 									imageName: WeatherDataIcons.icons[conditions] ?? "",
 									temperature: temperature,
 									precipitaionChance: precipitation,
-									isSelected: day == vm.todayWeather
+									isSelected: day == vm.todaysWeather
 								)
 							}
 							
