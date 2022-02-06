@@ -13,7 +13,7 @@ class WeatherViewModel: ObservableObject {
 	
 	@Published var cityname:String = 			WeatherData.mockData.cityname!
 	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
-	@Published var todaysWeather:Day = 		Day.mockData.first!
+	@Published var displayedWeather:Day = 		Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
 	
@@ -32,7 +32,7 @@ class WeatherViewModel: ObservableObject {
 			
 			self.cityname = 			receivedWeather.cityname!
 			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
-			self.todaysWeather =		receivedWeather.days!.first!
+			self.displayedWeather =		receivedWeather.days!.first!
 			self.nextDays = 			receivedWeather.days!
 			
 		}
@@ -49,7 +49,7 @@ class WeatherViewModel: ObservableObject {
 	}
 	
 	func setTodaysWeather(to day : Day) {
-		self.todaysWeather = day
+		self.displayedWeather = day
 	}
 	
 	var blurRadius: CGFloat {

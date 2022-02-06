@@ -44,14 +44,11 @@ struct WeatherDayView: View {
 							.foregroundColor(.secondary)
 					}
 				}
-				.frame(maxHeight: 20)
+				.frame(height: 20)
 			}
 		}
 		.frame(width: 80, height: 150)
 		.clipShape(RoundedRectangle(cornerRadius: 15))
-		.onTapGesture {
-			
-		}
 	}
 }
 

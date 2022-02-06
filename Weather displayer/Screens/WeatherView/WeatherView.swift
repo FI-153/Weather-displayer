@@ -18,23 +18,24 @@ struct WeatherView: View {
 				
 				Spacer()
 				
-				//title
+				//MARK: - title
 				CityTextView(cityname: vm.cityname, provinceAndCountry: vm.provinceAndCountry)
 				
 				//Current weather
 				if
-					let conditions = 	vm.todaysWeather.icon,
-					let temparature = 	vm.todaysWeather.temp,
-					let description = 	vm.todaysWeather.description
+					let conditions = 	vm.displayedWeather.icon,
+					let temparature = 	vm.displayedWeather.temp,
+					let description = 	vm.displayedWeather.description
 				{
 					MainWeatherIcon(
 						imageName: 	WeatherDataIcons.icons[conditions] ?? "",
 						temperature: 	temparature,
 						description: 	description
 					)
+						.frame(width: 350, height: 350)
 				}
 				
-				//Weather next days
+				//MARK: - Weather next days
 				ScrollView(.horizontal, showsIndicators: false){
 					HStack{
 						ForEach(vm.nextDays){ day in
@@ -45,13 +46,17 @@ struct WeatherView: View {
 								let temperature = 	day.temp,
 								let precipitation = 	day.precip
 							{
-								WeatherDayView(
-									dayOfWeek: dayOfTheWeek,
-									imageName: WeatherDataIcons.icons[conditions] ?? "",
-									temperature: temperature,
-									precipitaionChance: precipitation,
-									isSelected: day == vm.todaysWeather
-								)
+								Button {
+									self.vm.displayedWeather = day
+								} label: {
+									WeatherDayView(
+										dayOfWeek: dayOfTheWeek,
+										imageName: WeatherDataIcons.icons[conditions] ?? "",
+										temperature: temperature,
+										precipitaionChance: precipitation,
+										isSelected: day == vm.displayedWeather
+									)
+								}
 							}
 							
 						}
@@ -61,6 +66,7 @@ struct WeatherView: View {
 				
 				Spacer()
 				
+				//MARK: - Button
 				Button {
 					
 				} label: {
@@ -71,19 +77,19 @@ struct WeatherView: View {
 				Spacer()
 				
 			}
-			#if !DEBUG
+#if !DEBUG
 			.blur(radius: vm.blurRadius)
 			.disabled(vm.isUiDisabled)
-			#endif
+#endif
 			
-			#if !DEBUG
+#if !DEBUG
 			if vm.isLoading {
 				ZStack{
 					BackgroundView()
 					ProgressView()
 				}
 			}
-			#endif
+#endif
 		}
 	}
 }
