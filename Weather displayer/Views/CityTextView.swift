@@ -18,12 +18,15 @@ struct CityTextView: View {
 				Text(self.cityname)
 					.font(.largeTitle)
 					.fontWeight(.bold)
-				
+					.frame(height: 50)
+
 				Text(self.provinceAndCountry)
 					.font(.title2)
 					.fontWeight(.semibold)
 			}
+			.minimumScaleFactor(0.9)
 			.foregroundColor(.white)
+			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(.horizontal)
 			
 		}
@@ -32,9 +35,22 @@ struct CityTextView: View {
 
 struct CityTextView_Previews: PreviewProvider {
 	static var previews: some View {
-		ZStack {
-			BackgroundView()
-			CityTextView(cityname: "Cazzano Sant'Andrea", provinceAndCountry: "Lombardia, Italia")
+		VStack {
+			ZStack {
+				BackgroundView()
+				CityTextView(cityname: "Dalmine", provinceAndCountry: "Lombardia, Italia")
+			}
+			
+			ZStack {
+				BackgroundView()
+				CityTextView(cityname: "Cazzano Sant'Andrea", provinceAndCountry: "Lombardia, Italia")
+			}
+
+			ZStack {
+				BackgroundView()
+				CityTextView(cityname: "Desenzano sul Borbonico borgo", provinceAndCountry: "Lombardia, Italia")
+			}
+
 		}
 	}
 }
