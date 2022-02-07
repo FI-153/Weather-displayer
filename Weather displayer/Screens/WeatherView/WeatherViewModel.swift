@@ -11,13 +11,12 @@ import SwiftUI
 
 class WeatherViewModel: ObservableObject {
 	
-	@Published var cityname:String = 			WeatherData.mockData.cityname!
+	@Published var titleString:String = 		WeatherData.mockData.cityname!
 	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
 	@Published var displayedWeather:Day = 		Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
-	
-	@Published var titleString:String = 	WeatherData.mockData.cityname!
+	@Published var isCityTextViewFocused:Bool =	false
 	
 	private let downloadDataManager = 	DownloadDataManager.shared
 	private var cancellables = 			Set<AnyCancellable>()
@@ -54,8 +53,12 @@ class WeatherViewModel: ObservableObject {
 		self.displayedWeather = day
 	}
 	
-	var blurRadius: CGFloat {
+	var blurRadiusForLoading: CGFloat {
 		isLoading ? 20 : 0
+	}
+	
+	var blurRadiusForchangingCity: CGFloat {
+		isCityTextViewFocused ? 20 : 0
 	}
 	
 	var isUiDisabled: Bool {
