@@ -9,16 +9,18 @@ import Foundation
 import SwiftUI
 
 struct CityTextView: View {
-	var cityname:String
-	var provinceAndCountry:String
 	
+	@Binding var titleText:String
+	var provinceAndCountry:String
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			Group{
-				Text(self.cityname)
-					.font(.largeTitle)
-					.fontWeight(.bold)
-					.frame(height: 50)
+				TextField("", text: $titleText)
+					.textFieldStyle(.plain)
+					.keyboardType(.asciiCapable)
+					.font(.system(size: 35, weight: .bold))
+					.submitLabel(.go)
 
 				Text(self.provinceAndCountry)
 					.font(.title2)
@@ -38,17 +40,17 @@ struct CityTextView_Previews: PreviewProvider {
 		VStack {
 			ZStack {
 				BackgroundView()
-				CityTextView(cityname: "Dalmine", provinceAndCountry: "Lombardia, Italia")
+				CityTextView(titleText: .constant("Dalmine"), provinceAndCountry: "Lombardia, Italia")
 			}
 			
 			ZStack {
 				BackgroundView()
-				CityTextView(cityname: "Cazzano Sant'Andrea", provinceAndCountry: "Lombardia, Italia")
+				CityTextView(titleText: .constant("Cazzano Sant'Andrea"), provinceAndCountry: "Lombardia, Italia")
 			}
 
 			ZStack {
 				BackgroundView()
-				CityTextView(cityname: "Desenzano sul Borbonico borgo", provinceAndCountry: "Lombardia, Italia")
+				CityTextView(titleText: .constant("Desenzano sul Borbonico borgo"), provinceAndCountry: "Lombardia, Italia")
 			}
 
 		}

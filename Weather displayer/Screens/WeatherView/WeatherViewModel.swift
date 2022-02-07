@@ -17,8 +17,10 @@ class WeatherViewModel: ObservableObject {
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
 	
-	private let downloadDataManager = 		DownloadDataManager.shared
-	private var cancellables = 				Set<AnyCancellable>()
+	@Published var titleString:String = 	WeatherData.mockData.cityname!
+	
+	private let downloadDataManager = 	DownloadDataManager.shared
+	private var cancellables = 			Set<AnyCancellable>()
 	
 	init(){
 		addSubscriberToWeatherDataArray()
@@ -30,7 +32,7 @@ class WeatherViewModel: ObservableObject {
 			
 			guard let self = self else { return }
 			
-			self.cityname = 			receivedWeather.cityname!
+			self.titleString = 		receivedWeather.cityname!
 			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
 			self.displayedWeather =		receivedWeather.days!.first!
 			self.nextDays = 			receivedWeather.days!
