@@ -14,19 +14,23 @@ class DownloadDataManager {
 	@Published var downloadedData:WeatherData = WeatherData.mockData
 	
 	///Saves the previous downloaded weather data
-	private var previouslyDownloadedData:WeatherData?
+	var previouslyDownloadedData:WeatherData?
 	
 	///Checks if the downloader is downloading Data
 	@Published var isLoading:Bool = true
 	
 	///Singleton instance of the class
 	static let shared = DownloadDataManager()
-	private init(){
-		do{
-			try downloadWeatherData(for: "Cazzano sant'Andrea")
-		}catch let error {
-			print(error)
+	public init(isForTesting:Bool = false){
+		
+		if !isForTesting {
+			do{
+				try downloadWeatherData(for: "Cazzano sant'Andrea")
+			}catch let error {
+				print(error)
+			}
 		}
+		
 	}
 	
 	private var cancellables = Set<AnyCancellable>()

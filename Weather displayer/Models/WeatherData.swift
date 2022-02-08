@@ -75,7 +75,7 @@ struct Day: Identifiable, Decodable, Equatable {
 	]
 }
 
-struct WeatherData: Identifiable, Decodable {
+struct WeatherData: Identifiable, Decodable, Equatable {
 	
 	let id = UUID()
 	
