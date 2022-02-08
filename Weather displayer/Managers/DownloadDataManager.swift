@@ -14,7 +14,7 @@ class DownloadDataManager {
 	@Published var downloadedData:WeatherData = WeatherData.mockData
 	
 	///Saves the previous downloaded weather data
-	var previouslyDownloadedData:WeatherData?
+	private var previouslyDownloadedData:WeatherData?
 	
 	///Checks if the downloader is downloading Data
 	@Published var isLoading:Bool = true
@@ -31,7 +31,8 @@ class DownloadDataManager {
 	
 	private var cancellables = Set<AnyCancellable>()
 	
-	func downloadWeatherData(for location:String) throws{
+	///Downloads the weahter data, docodes it and publishes it to downloadedData
+	public func downloadWeatherData(for location:String) throws{
 		guard let url = URL(string: createUrlRequest(for: location)) else {
 			throw URLError(.badURL)
 		}
@@ -46,9 +47,9 @@ class DownloadDataManager {
 			.sink { [weak self] receivedWeather in
 				guard let self = self else { return }
 				
-				self.downloadedData = 	receivedWeather
-				self.previouslyDownloadedData = receivedWeather
-				self.isLoading = 		false
+				self.downloadedData = 			receivedWeather
+				self.previouslyDownloadedData = 	receivedWeather
+				self.isLoading = 	false
 			}
 			.store(in: &cancellables)
 		
@@ -64,7 +65,8 @@ class DownloadDataManager {
 		return output.data
 	}
 	
-	public func createUrlRequest(for location: String) -> String {
+	///Compiles the URL request do download the weather data from a location
+	private func createUrlRequest(for location: String) -> String {
 		
 		let before 				= "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
 		let after 				= "/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
