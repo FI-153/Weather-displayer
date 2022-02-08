@@ -13,7 +13,7 @@ class WeatherViewModel: ObservableObject {
 	
 	@Published var titleString:String = 		WeatherData.mockData.cityname!
 	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
-	@Published var highlightedWeather:Day = 		Day.mockData.first!
+	@Published var highlightedWeather:Day = 	Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
 	@Published var isCityTextViewFocused:Bool =	false

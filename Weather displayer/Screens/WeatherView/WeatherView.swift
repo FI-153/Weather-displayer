@@ -53,7 +53,7 @@ struct WeatherView: View {
 										let precipitation = 	day.precip
 									{
 										Button {
-											self.vm.changeHighlightedWeater(to: day)
+											vm.changeHighlightedWeater(to: day)
 										} label: {
 											WeatherDayView(
 												dayOfWeek: dayOfTheWeek,

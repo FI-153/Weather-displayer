@@ -13,6 +13,9 @@ class DownloadDataManager {
 	///Publishes all downloaded locations
 	@Published var downloadedData:WeatherData = WeatherData.mockData
 	
+	///Saves the previous downloaded weather data
+	var previouslyDownloadedData:WeatherData?
+	
 	///Checks if the downloader is downloading Data
 	@Published var isLoading:Bool = true
 	
@@ -39,11 +42,12 @@ class DownloadDataManager {
 			.receive(on: DispatchQueue.main)
 			.tryMap(handleOutput)
 			.decode(type: WeatherData.self, decoder: JSONDecoder())
-			.replaceError(with: WeatherData.mockData)
+			.replaceError(with: previouslyDownloadedData ?? WeatherData.mockData)
 			.sink { [weak self] receivedWeather in
 				guard let self = self else { return }
 				
 				self.downloadedData = 	receivedWeather
+				self.previouslyDownloadedData = receivedWeather
 				self.isLoading = 		false
 			}
 			.store(in: &cancellables)
