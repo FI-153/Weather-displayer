@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct WeatherButtonView: View {
-  var title:String
-  
-  var body: some View {
-    Text(self.title)
-      .frame(width: 280, height: 50, alignment: .center)
-      .background(Color.white)
-      .font(.system(size: 20, weight: .bold, design: .default))
-      .cornerRadius(10)
-  }
+	var title:String
+	
+	var body: some View {
+		Text(self.title)
+			.foregroundColor(.black.opacity(0.8))
+			.frame(width: 200, height: 50, alignment: .center)
+			.background(Color.white.opacity(0.8))
+			.font(.system(size: 20, weight: .bold, design: .default))
+			.cornerRadius(10)
+	}
 }
 

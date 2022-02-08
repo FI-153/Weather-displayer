@@ -25,7 +25,7 @@ struct WeatherView: View {
 						isCityTextViewSelected: $vm.isCityTextViewFocused,
 						provinceAndCountry: vm.provinceAndCountry
 					)
-
+					
 					//MARK: - Highlighted weather
 					Group {
 						if
@@ -69,9 +69,19 @@ struct WeatherView: View {
 							}
 						}
 						.padding(.horizontal)
+
+						Spacer()
+						
+						//MARK: - Shown More Button
+						Button {
+							
+						} label: {
+							WeatherButtonView(title: "Show More")
+						}
+
 						
 						Spacer()
-												
+						
 					}
 					.blur(radius: vm.blurRadiusForchangingCity)
 				}
