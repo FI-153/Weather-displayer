@@ -11,14 +11,15 @@ import SwiftUI
 
 class WeatherViewModel: ObservableObject {
 	
-	@Published var cityname:String = 			WeatherData.mockData.cityname!
+	@Published var titleString:String = 		WeatherData.mockData.cityname!
 	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
 	@Published var displayedWeather:Day = 		Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
+	@Published var isCityTextViewFocused:Bool =	false
 	
-	private let downloadDataManager = 		DownloadDataManager.shared
-	private var cancellables = 				Set<AnyCancellable>()
+	private let downloadDataManager = 	DownloadDataManager.shared
+	private var cancellables = 			Set<AnyCancellable>()
 	
 	init(){
 		addSubscriberToWeatherDataArray()
@@ -30,7 +31,7 @@ class WeatherViewModel: ObservableObject {
 			
 			guard let self = self else { return }
 			
-			self.cityname = 			receivedWeather.cityname!
+			self.titleString = 		receivedWeather.cityname!
 			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
 			self.displayedWeather =		receivedWeather.days!.first!
 			self.nextDays = 			receivedWeather.days!
@@ -52,8 +53,12 @@ class WeatherViewModel: ObservableObject {
 		self.displayedWeather = day
 	}
 	
-	var blurRadius: CGFloat {
+	var blurRadiusForLoading: CGFloat {
 		isLoading ? 20 : 0
+	}
+	
+	var blurRadiusForchangingCity: CGFloat {
+		isCityTextViewFocused ? 20 : 0
 	}
 	
 	var isUiDisabled: Bool {

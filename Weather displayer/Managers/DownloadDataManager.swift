@@ -20,7 +20,7 @@ class DownloadDataManager {
 	static let shared = DownloadDataManager()
 	private init(){
 		do{
-			try downloadWeatherData()
+			try downloadWeatherData(for: "Cazzano sant'Andrea")
 		}catch let error {
 			print(error)
 		}
@@ -28,10 +28,12 @@ class DownloadDataManager {
 	
 	private var cancellables = Set<AnyCancellable>()
 	
-	func downloadWeatherData() throws{
-		guard let url = URL(string: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Cazzano%20sant'Andrea/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json") else {
+	func downloadWeatherData(for location:String) throws{
+		guard let url = URL(string: createUrlRequest(for: location)) else {
 			throw URLError(.badURL)
 		}
+		
+		print(createUrlRequest(for: location))
 		
 		URLSession.shared.dataTaskPublisher(for: url)
 			.receive(on: DispatchQueue.main)
@@ -56,6 +58,15 @@ class DownloadDataManager {
 				throw URLError(.badServerResponse)
 			}
 		return output.data
+	}
+	
+	public func createUrlRequest(for location: String) -> String {
+		
+		let before 				= "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
+		let after 				= "/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
+		let formattedLocation 	= location.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: .illegalCharacters).filter{ !" \n\t\r".contains($0) }
+		
+		return before + formattedLocation + after
 	}
 	
 }

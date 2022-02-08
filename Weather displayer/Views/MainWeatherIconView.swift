@@ -31,6 +31,7 @@ struct MainWeatherIcon: View {
 			Text("\"" + description + "\"")
 				.font(.title2)
 				.fontWeight(.semibold)
+				.minimumScaleFactor(0.7)
 				.foregroundColor(.secondary)
 				.padding(.bottom)
 		}
