@@ -13,19 +13,18 @@ class WeatherViewModel: ObservableObject {
 	
 	@Published var titleString:String = 		WeatherData.mockData.cityname!
 	@Published var provinceAndCountry:String =	WeatherData.mockData.provinceAndCountry!
-	@Published var displayedWeather:Day = 		Day.mockData.first!
+	@Published var highlightedWeather:Day = 		Day.mockData.first!
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
 	@Published var isCityTextViewFocused:Bool =	false
-	
-	private let downloadDataManager = 	DownloadDataManager.shared
-	private var cancellables = 			Set<AnyCancellable>()
 	
 	init(){
 		addSubscriberToWeatherDataArray()
 		addSubscriberToIsLoading()
 	}
 	
+	private let downloadDataManager = 	DownloadDataManager.shared
+	private var cancellables = 			Set<AnyCancellable>()
 	func addSubscriberToWeatherDataArray(){
 		downloadDataManager.$downloadedData.sink { [weak self] receivedWeather in
 			
@@ -33,14 +32,14 @@ class WeatherViewModel: ObservableObject {
 			
 			self.titleString = 		receivedWeather.cityname!
 			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
-			self.displayedWeather =		receivedWeather.days!.first!
+			self.highlightedWeather =		receivedWeather.days!.first!
 			self.nextDays = 			receivedWeather.days!
 			
 		}
 		.store(in: &cancellables)
 	}
 	
-	func addSubscriberToIsLoading(){
+	private func addSubscriberToIsLoading(){
 		downloadDataManager.$isLoading.sink { [weak self] isLoading in
 			guard let self = self else { return }
 			
@@ -50,7 +49,11 @@ class WeatherViewModel: ObservableObject {
 	}
 	
 	func setTodaysWeather(to day : Day) {
-		self.displayedWeather = day
+		self.highlightedWeather = day
+	}
+	
+	func changeHighlightedWeater(to day : Day) {
+		self.highlightedWeather = day
 	}
 	
 	var blurRadiusForLoading: CGFloat {

@@ -19,15 +19,19 @@ struct WeatherView: View {
 					
 					Spacer()
 					
-					//MARK: - title
-					CityTextView(titleText: $vm.titleString, isCityTextViewSelected: $vm.isCityTextViewFocused, provinceAndCountry: vm.provinceAndCountry)
-					
+					//MARK: - City name
+					CityTextView(
+						titleText: $vm.titleString,
+						isCityTextViewSelected: $vm.isCityTextViewFocused,
+						provinceAndCountry: vm.provinceAndCountry
+					)
+
+					//MARK: - Highlighted weather
 					Group {
-						//Current weather
 						if
-							let conditions = 	vm.displayedWeather.icon,
-							let temparature = 	vm.displayedWeather.temp,
-							let description = 	vm.displayedWeather.description
+							let conditions = 	vm.highlightedWeather.icon,
+							let temparature = 	vm.highlightedWeather.temp,
+							let description = 	vm.highlightedWeather.description
 						{
 							MainWeatherIcon(
 								imageName: 	WeatherDataIcons.icons[conditions] ?? "",
@@ -49,14 +53,14 @@ struct WeatherView: View {
 										let precipitation = 	day.precip
 									{
 										Button {
-											self.vm.displayedWeather = day
+											self.vm.changeHighlightedWeater(to: day)
 										} label: {
 											WeatherDayView(
 												dayOfWeek: dayOfTheWeek,
 												imageName: WeatherDataIcons.icons[conditions] ?? "",
 												temperature: temperature,
 												precipitaionChance: precipitation,
-												isSelected: day == vm.displayedWeather
+												isSelected: day == vm.highlightedWeather
 											)
 										}
 									}
