@@ -67,17 +67,7 @@ struct WeatherView: View {
 						.padding(.horizontal)
 						
 						Spacer()
-						
-						//MARK: - Button
-						Button {
-							
-						} label: {
-							WeatherButtonView(title: "Change City")
-								.shadow(radius: 5)
-						}
-						
-						Spacer()
-						
+												
 					}
 					.blur(radius: vm.blurRadiusForchangingCity)
 				}
