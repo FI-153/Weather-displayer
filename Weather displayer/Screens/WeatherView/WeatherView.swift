@@ -34,7 +34,7 @@ struct WeatherView: View {
 							let description = 	vm.highlightedWeather.description
 						{
 							MainWeatherIcon(
-								imageName: 	WeatherIcons.icons[conditions] ?? "",
+								imageName: 	conditions,
 								temperature: 	temparature,
 								description: 	description
 							)
@@ -57,7 +57,7 @@ struct WeatherView: View {
 										} label: {
 											WeatherDayView(
 												dayOfWeek: dayOfTheWeek,
-												imageName: WeatherIcons.icons[conditions] ?? "",
+												imageName: conditions,
 												temperature: temperature,
 												precipitaionChance: precipitation,
 												isSelected: day == vm.highlightedWeather
