@@ -27,16 +27,22 @@ struct Day: Identifiable, Decodable, Equatable {
 	///Description of the day's weather
 	var description:	String?
 	
+	///Mamimum temperature
 	var tempMax:		Float?
 	
+	///Minimum temperatiure
 	var tempMin:		Float?
 	
-	var conditions:	String?
+	///Short desctiption of the conditions, [0] is always present while [1] can sometimes not be present
+	var conditions:	[String]?
 	
+	///Wind speed in Km/h
 	var windSpeed:		Float?
 	
+	///Amount of precipitation in mm
 	var precip:		Float?
 	
+	///Solar energy in MWh
 	var solarEnergy:	Float?
 	
 	private init(datetime: String, temp: Float, precipProb: Float, icon: String, description: String, tempMax: Float, tempMin: Float, conditions: String, windSpeed: Float, precip: Float, solarEnergy:Float) {
@@ -47,7 +53,7 @@ struct Day: Identifiable, Decodable, Equatable {
 		self.description =	description
 		self.tempMax = tempMax
 		self.tempMin = tempMin
-		self.conditions = conditions
+		self.conditions = extractConditions(from: conditions)
 		self.windSpeed = windSpeed
 		self.precip = precip
 		self.solarEnergy = solarEnergy
@@ -68,7 +74,7 @@ struct Day: Identifiable, Decodable, Equatable {
 			self.description = try container.decode(String.self, forKey: CodingKeys.description)
 			self.tempMax =		try container.decode(Float.self, forKey: CodingKeys.tempmax)
 			self.tempMin = 	try container.decode(Float.self, forKey: CodingKeys.tempmin)
-			self.conditions =	try container.decode(String.self, forKey: CodingKeys.conditions)
+			self.conditions =	extractConditions(from: try container.decode(String.self, forKey: CodingKeys.conditions))
 			self.windSpeed = 	try container.decode(Float.self, forKey: CodingKeys.windspeed)
 			self.precip = 	try container.decode(Float.self, forKey: CodingKeys.precip)
 			self.solarEnergy = try container.decode(Float.self, forKey: CodingKeys.solarenergy)
@@ -81,6 +87,11 @@ struct Day: Identifiable, Decodable, Equatable {
 		let separatedDate = date.components(separatedBy: "-")
 		
 		return separatedDate[2] + "/" + separatedDate[1]
+	}
+	
+	func extractConditions(from string:String) -> [String] {
+		let separatedConditions = string.components(separatedBy: ", ")
+		return separatedConditions
 	}
 	
 	static func == (lhs: Day, rhs: Day) -> Bool {
