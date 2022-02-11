@@ -30,14 +30,24 @@ struct WeatherDetailsView: View {
 						}
 					}
 					
-					Spacer()
 				}
 				.padding()
-				.ignoresSafeArea()
 				
+				VStack{
+					HStack {
+						WeatherDetailsViewElement(title: "Max Temp", bigValue: "\(day.tempMax!)°C")
+						WeatherDetailsViewElement(title: "Min Temp", bigValue: "\(day.tempMin!)°C")
+					}
+					HStack {
+						WeatherDetailsViewElement(title: "Precipitation", image: "cloud.drizzle.fill", displayedInfo: "\(day.precip!)mm")
+						WeatherDetailsViewElement(title: "Wind Speed", image: "wind", displayedInfo: "\(day.windSpeed!)")
+					}
+					HStack{
+						WeatherDetailsViewElement(title: "UV Index", image: "sun.max.fill", displayedInfo: "5")
+						WeatherDetailsViewElement(title: "Solar Energy", image: "bolt.fill", displayedInfo: "\(day.solarEnergy!)MWh")
+					}
+				}
 				
-				
-				Spacer()
 			}
 			.toolbar {
 				ToolbarItem(placement: .automatic) {
@@ -80,7 +90,7 @@ struct WeatherDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
 		ZStack {
 			BackgroundView()
-			WeatherDetailsView(isSheetShown: .constant(true), day: Day.mockData[2])
+			WeatherDetailsView(isSheetShown: .constant(true), day: Day.mockData[1])
 		}
     }
 }
