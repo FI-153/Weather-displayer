@@ -12,49 +12,45 @@ struct WeatherDetailsView: View {
 	var day:Day
 	
 	var body: some View {
-		NavigationView{
 			VStack{
-				HStack{
+				HStack(spacing: 20){
 					weatherImage
 					
 					VStack(alignment: .leading){
-						if
-							let title = 		day.conditions?[0],
-							let subtitle = 	day.conditions?[1]
-						{
-							Text(title)
-								.bold()
-								.font(.title)
-							Text(subtitle)
+						
+						Text(day.conditions![0]!)
+							.bold()
+							.font(.title)
+						
+						//Display subtitle only if present
+						if day.conditions!.count == 2 {
+							Text(day.conditions![1]!)
 								.font(.title3)
 						}
+						
 					}
+					
+					dismissButton
 					
 				}
 				.padding()
-				
-				VStack{
-					HStack {
-						WeatherDetailsViewElement(title: "Max Temp", bigValue: "\(day.tempMax!)°C")
-						WeatherDetailsViewElement(title: "Min Temp", bigValue: "\(day.tempMin!)°C")
-					}
-					HStack {
-						WeatherDetailsViewElement(title: "Precipitation", image: "cloud.drizzle.fill", displayedInfo: "\(day.precip!)mm")
-						WeatherDetailsViewElement(title: "Wind Speed", image: "wind", displayedInfo: "\(day.windSpeed!)")
-					}
-					HStack{
-						WeatherDetailsViewElement(title: "UV Index", image: "sun.max.fill", displayedInfo: "5")
-						WeatherDetailsViewElement(title: "Solar Energy", image: "bolt.fill", displayedInfo: "\(day.solarEnergy!)MWh")
-					}
+				.ignoresSafeArea()
+
+				HStack {
+					WeatherDetailsViewElement(title: "Max Temp", bigValue: "\(day.tempMax!)°C")
+					WeatherDetailsViewElement(title: "Min Temp", bigValue: "\(day.tempMin!)°C")
+				}
+				HStack {
+					WeatherDetailsViewElement(title: "Precipitation", image: "cloud.drizzle.fill", displayedInfo: "\(day.precip!)mm")
+					WeatherDetailsViewElement(title: "Wind Speed", image: "wind", displayedInfo: "\(day.windSpeed!)")
+				}
+				HStack{
+					WeatherDetailsViewElement(title: "UV Index", image: "sun.max.fill", displayedInfo: "5")
+					WeatherDetailsViewElement(title: "Solar Energy", image: "bolt.fill", displayedInfo: "\(day.solarEnergy!)MWh")
 				}
 				
 			}
-			.toolbar {
-				ToolbarItem(placement: .automatic) {
-					dismissButton
-				}
-			}
-		}
+			
 		
 	}
 }
@@ -90,7 +86,7 @@ struct WeatherDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
 		ZStack {
 			BackgroundView()
-			WeatherDetailsView(isSheetShown: .constant(true), day: Day.mockData[1])
+			WeatherDetailsView(isSheetShown: .constant(true), day: Day.mockData[0])
 		}
     }
 }
