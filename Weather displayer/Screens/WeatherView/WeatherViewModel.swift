@@ -17,6 +17,7 @@ class WeatherViewModel: ObservableObject {
 	@Published var nextDays:[Day] = 			Day.mockData
 	@Published var isLoading:Bool = 			true
 	@Published var isCityTextViewFocused:Bool =	false
+	@Published var isSheetShown:Bool =		false
 	
 	init(){
 		addSubscriberToWeatherDataArray()

@@ -74,9 +74,12 @@ struct WeatherView: View {
 						
 						//MARK: - Shown More Button
 						Button {
-							
+							vm.isSheetShown = true
 						} label: {
 							WeatherButtonView(title: "Show More")
+						}
+						.sheet(isPresented: $vm.isSheetShown) {
+							WeatherDetailsView(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather)
 						}
 
 						
