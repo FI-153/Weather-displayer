@@ -66,11 +66,11 @@ struct WeatherDayView_Previews: PreviewProvider {
 								let dayOfTheWeek =	day.datetime,
 								let conditions = 	day.icon,
 								let temperature = 	day.temp,
-								let precipitation = 	day.precip
+								let precipitation = 	day.precipProb
 							{
 								WeatherDayView(
 									dayOfWeek: dayOfTheWeek,
-									imageName: WeatherDataIcons.icons[conditions] ?? "",
+									imageName: WeatherIcons.icons[conditions] ?? "",
 									temperature: temperature,
 									precipitaionChance: precipitation,
 									isSelected: false
@@ -94,11 +94,11 @@ struct WeatherDayView_Previews: PreviewProvider {
 								let dayOfTheWeek =	day.datetime,
 								let conditions = 	day.icon,
 								let temperature = 	day.temp,
-								let precipitation = 	day.precip
+								let precipitation = 	day.precipProb
 							{
 								WeatherDayView(
 									dayOfWeek: dayOfTheWeek,
-									imageName: WeatherDataIcons.icons[conditions] ?? "",
+									imageName: WeatherIcons.icons[conditions] ?? "",
 									temperature: temperature,
 									precipitaionChance: precipitation,
 									isSelected: false

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeatherDataIcons{
+struct WeatherIcons{
 	static let icons: [String : String] = [
 		"snow"				: "snow",
 		"rain"				: "cloud.rain.fill",
