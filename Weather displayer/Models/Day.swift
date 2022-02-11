@@ -39,12 +39,18 @@ struct Day: Identifiable, Decodable, Equatable {
 	
 	var solarEnergy:	Float?
 	
-	private init(datetime: String, temp: Float, precipProb: Float, icon:	String, description: String) {
+	private init(datetime: String, temp: Float, precipProb: Float, icon: String, description: String, tempMax: Float, tempMin: Float, conditions: String, windSpeed: Float, precip: Float, solarEnergy:Float) {
 		self.datetime = 	extractDate(date: datetime)
 		self.temp = 		temp
 		self.precipProb = 	precipProb
 		self.icon =		icon
 		self.description =	description
+		self.tempMax = tempMax
+		self.tempMin = tempMin
+		self.conditions = conditions
+		self.windSpeed = windSpeed
+		self.precip = precip
+		self.solarEnergy = solarEnergy
 	}
 	
 	private enum CodingKeys: String, CodingKey {
@@ -55,7 +61,6 @@ struct Day: Identifiable, Decodable, Equatable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		do {
-			//self.datetime = 	try container.decode(String.self, forKey: CodingKeys.datetime)
 			self.datetime =	extractDate(date: try container.decode(String.self, forKey: CodingKeys.datetime))
 			self.temp = 		try container.decode(Float.self, forKey: CodingKeys.temp)
 			self.precipProb = 	try container.decode(Float.self, forKey: CodingKeys.precipprob)
@@ -84,12 +89,12 @@ struct Day: Identifiable, Decodable, Equatable {
 	
 	///Mock data to be used during development
 	static let mockData = [
-		Day(datetime: "2021-02-01", temp: 8.1, precipProb: 0, icon: "cloudy", description: "Desctiption of weather data"),
-		Day(datetime: "2021-02-01", temp: 9.5, precipProb: 90, icon: "rain", description: "Desctiption of weather data2"),
-		Day(datetime: "2021-02-01", temp: 10, precipProb: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
-		Day(datetime: "2021-02-01", temp: 21, precipProb: 0, icon: "cloudy", description: "Desctiption of weather data2"),
-		Day(datetime: "2021-02-01", temp: -2, precipProb: 45, icon: "rain", description: "Desctiption of weather data2"),
-		Day(datetime: "2021-02-01", temp: 4.1, precipProb: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2"),
-		Day(datetime: "2021-02-01", temp: 4.1, precipProb: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2")
+		Day(datetime: "2021-02-01", temp: 8.1, precipProb: 0, icon: "cloudy", description: "Desctiption of weather data", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5),
+		Day(datetime: "2021-02-01", temp: 9.5, precipProb: 90, icon: "rain", description: "Desctiption of weather data2", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5),
+		Day(datetime: "2021-02-01", temp: 10, precipProb: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5),
+		Day(datetime: "2021-02-01", temp: 21, precipProb: 0, icon: "cloudy", description: "Desctiption of weather data2", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5),
+		Day(datetime: "2021-02-01", temp: -2, precipProb: 45, icon: "rain", description: "Desctiption of weather data2", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5),
+		Day(datetime: "2021-02-01", temp: 4.1, precipProb: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5),
+		Day(datetime: "2021-02-01", temp: 4.1, precipProb: 0, icon: "partly-cloudy-day", description: "Desctiption of weather data2", tempMax: 10, tempMin: -1, conditions: "Cloudy, partially cloudy", windSpeed: 12, precip: 0, solarEnergy: 7.5)
 	]
 }
