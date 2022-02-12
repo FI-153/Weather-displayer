@@ -35,24 +35,24 @@ class DownloadDataManager {
 	
 	private var cancellables = Set<AnyCancellable>()
 	
+	///Weather data is downloaded for a specifiec location
 	func downloadWeatherData(for location:String) throws{
 		guard let url = URL(string: createUrlRequest(for: location)) else {
 			throw URLError(.badURL)
 		}
-		
-		print(createUrlRequest(for: location))
-		
+				
 		URLSession.shared.dataTaskPublisher(for: url)
 			.receive(on: DispatchQueue.main)
 			.tryMap(handleOutput)
 			.decode(type: WeatherData.self, decoder: JSONDecoder())
 			.replaceError(with: previouslyDownloadedData ?? WeatherData.mockData)
 			.sink { [weak self] receivedWeather in
+				
 				guard let self = self else { return }
 				
-				self.downloadedData = 	receivedWeather
-				self.previouslyDownloadedData = receivedWeather
-				self.isLoading = 		false
+				self.downloadedData = 			receivedWeather
+				self.previouslyDownloadedData = 	receivedWeather
+				self.isLoading = 				false
 			}
 			.store(in: &cancellables)
 		
