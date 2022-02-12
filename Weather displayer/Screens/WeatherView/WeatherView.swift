@@ -81,7 +81,7 @@ struct WeatherView: View {
 						.sheet(isPresented: $vm.isSheetShown) {
 							ZStack{
 								BackgroundView()
-								WeatherDetailsView(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather)
+								WeatherDetailsView(vm: WeatherDetailsViewModel(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather))
 							}
 						}
 						
