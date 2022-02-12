@@ -24,7 +24,7 @@ struct WeatherData: Identifiable, Decodable, Equatable {
 		case resolvedAddress, days
 	}
 	
-	private init(resolvedAddress:String, days:[Day]){
+	init(resolvedAddress:String, days:[Day]){
 		self.resolvedAddress = 		resolvedAddress
 		self.cityname =			extractCityName(from: resolvedAddress)
 		self.provinceAndCountry = 	extractProvinceAndCountry(from: resolvedAddress)
