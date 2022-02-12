@@ -19,7 +19,7 @@ struct WeatherDayView: View {
 	var body: some View {
 		ZStack {
 				
-			Color.secondary.opacity(isSelected! ? 0.4 : 0.1)
+			Color.secondary.opacity(isSelected! ? 0.4 : 0.2)
 			
 			VStack{
 				Text(self.dayOfWeek)
@@ -64,16 +64,16 @@ struct WeatherDayView_Previews: PreviewProvider {
 							
 							if
 								let dayOfTheWeek =	day.datetime,
-								let conditions = 	day.icon,
+								let imageName = 		day.icon,
 								let temperature = 	day.temp,
 								let precipitation = 	day.precipProb
 							{
 								WeatherDayView(
-									dayOfWeek: dayOfTheWeek,
-									imageName: WeatherIcons.icons[conditions] ?? "",
-									temperature: temperature,
-									precipitaionChance: precipitation,
-									isSelected: false
+									dayOfWeek: 		dayOfTheWeek,
+									imageName: 		imageName,
+									temperature: 		temperature,
+									precipitaionChance:	precipitation,
+									isSelected: 		false
 								)
 							}
 							

@@ -79,9 +79,12 @@ struct WeatherView: View {
 							WeatherButtonView(title: "Show More")
 						}
 						.sheet(isPresented: $vm.isSheetShown) {
-							WeatherDetailsView(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather)
+							ZStack{
+								BackgroundView()
+								WeatherDetailsView(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather)
+							}
 						}
-
+						
 						
 						Spacer()
 						
