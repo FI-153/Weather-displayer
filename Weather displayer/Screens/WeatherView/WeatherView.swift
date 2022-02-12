@@ -68,7 +68,7 @@ struct WeatherView: View {
 								}
 							}
 						}
-						.padding(.horizontal)
+						.padding()
 
 						Spacer()
 						

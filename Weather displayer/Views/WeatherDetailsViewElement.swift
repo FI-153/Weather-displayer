@@ -43,6 +43,7 @@ struct WeatherDetailsViewElement: View {
 					Text(bigValue)
 						.font(.largeTitle)
 						.bold()
+						.minimumScaleFactor(0.7)
 						.padding()
 					
 				}

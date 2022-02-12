@@ -23,7 +23,7 @@ struct WeatherDayView: View {
 			
 			VStack{
 				Text(self.dayOfWeek)
-					.font(.callout)
+					.font(.title3)
 					.fontWeight(.semibold)
 					.foregroundColor(.white)
 				
@@ -34,7 +34,7 @@ struct WeatherDayView: View {
 					.frame(width: 40, height: 40)
 				
 				Text(String(self.temperature) + "°C")
-					.font(.title3)
+					.font(.title2)
 					.foregroundColor(.white)
 				
 				VStack{
@@ -47,7 +47,7 @@ struct WeatherDayView: View {
 				.frame(height: 20)
 			}
 		}
-		.frame(width: 80, height: 150)
+		.frame(width: 100, height: 180)
 		.clipShape(RoundedRectangle(cornerRadius: 15))
 	}
 }
