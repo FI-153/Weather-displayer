@@ -76,20 +76,23 @@ struct WeatherView: View {
 						Button {
 							vm.isSheetShown = true
 						} label: {
-							WeatherButtonView(title: "Show More")
+							Text("Show More")
+								.font(.title)
+								.fontWeight(.semibold)
 						}
-						.sheet(isPresented: $vm.isSheetShown) {
-							ZStack{
-								BackgroundView()
-								WeatherDetailsView(vm: WeatherDetailsViewModel(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather))
-							}
-						}
-						
+						.buttonStyle(.bordered)
+						.tint(.white)
 						
 						Spacer()
 						
 					}
 					.blur(radius: vm.blurRadiusForchangingCity)
+					.sheet(isPresented: $vm.isSheetShown) {
+						ZStack{
+							BackgroundView()
+							WeatherDetailsView(vm: WeatherDetailsViewModel(isSheetShown: $vm.isSheetShown, day: vm.highlightedWeather))
+						}
+					}
 				}
 #if !DEBUG
 				.blur(radius: vm.blurRadiusForLoading)
