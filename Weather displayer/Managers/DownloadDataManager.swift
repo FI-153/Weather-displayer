@@ -40,6 +40,8 @@ class DownloadDataManager {
 		guard let url = URL(string: createUrlRequest(for: location)) else {
 			throw URLError(.badURL)
 		}
+		
+		isLoading = true
 				
 		URLSession.shared.dataTaskPublisher(for: url)
 			.receive(on: DispatchQueue.main)
