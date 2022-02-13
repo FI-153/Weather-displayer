@@ -72,16 +72,27 @@ struct WeatherView: View {
 
 						Spacer()
 						
-						//MARK: - Shown More Button
-						Button {
-							vm.isSheetShown = true
-						} label: {
-							Text("Show More")
-								.font(.title)
-								.fontWeight(.semibold)
+						//MARK: - Buttons
+						
+						HStack{
+							Group{
+								Button {
+									vm.isSheetShown = true
+								} label: {
+									Text("Show More")
+										.fontWeight(.semibold)
+								}
+								
+								Button {
+									
+								} label: {
+									Image(systemName: "location")
+								}
+							}
+							.buttonStyle(.bordered)
+							.tint(.white)
+							.font(.title)
 						}
-						.buttonStyle(.bordered)
-						.tint(.white)
 						
 						Spacer()
 						
