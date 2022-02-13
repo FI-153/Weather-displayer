@@ -21,20 +21,20 @@ struct MainWeatherIcon: View {
 				.scaledToFit()
 				.frame(width: 150, height: 150)
 				.shadow(radius: 10)
+				.padding(.bottom)
 			
 			Text(String(self.temperature) + "°C")
 				.font(.largeTitle)
 				.fontWeight(.bold)
 				.foregroundColor(.white)
-				.padding(.bottom)
 			
 			Text("\"" + description + "\"")
 				.font(.title2)
 				.fontWeight(.semibold)
 				.minimumScaleFactor(0.7)
 				.foregroundColor(.secondary)
-				.padding(.bottom)
+				.frame(height: 100)
 		}
-		.padding()
+		.padding(.horizontal)
 	}
 }
