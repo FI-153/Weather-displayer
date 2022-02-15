@@ -14,12 +14,9 @@ struct WeatherDataElement: View {
 	var displayedInfo:String?
 	var bigValue:String?
 	
-	
 	var body: some View {
 		ZStack {
-			RoundedRectangle(cornerRadius: 10)
-				.fill(Color.secondary.opacity(0.3))
-				.frame(width: 70, height: 70)
+			background
 			
 			VStack{
 				
@@ -27,32 +24,52 @@ struct WeatherDataElement: View {
 					let image = image,
 					let displayedInfo = displayedInfo
 				{
-					
-					Image(systemName: image)
-						.resizable()
-						.scaledToFit()
-						.symbolRenderingMode(.multicolor)
-						.frame(height: 20)
-					
-					Text(displayedInfo)
-						.fontWeight(.semibold)
-						.padding(3)
+					showFirstConfiguration(image, displayedInfo)
 					
 				} else if
 					let title = title,
 					let bigValue = bigValue
 				{
-					Text(title)
-					
-					Text(bigValue)
-						.font(.title3)
-						.fontWeight(.semibold)
-						.padding(3)
+					showSecondConfiguration(title, bigValue)
 					
 				}
+				
 			}
 		}
 		
+	}
+}
+
+extension WeatherDataElement {
+	private var background: some View {
+		RoundedRectangle(cornerRadius: 10)
+			.fill(Color.secondary.opacity(0.3))
+			.frame(width: 70, height: 70)
+	}
+}
+
+private func showFirstConfiguration(_ image:String, _ displayedInfo:String) -> some View{
+	VStack{
+		Image(systemName: image)
+			.resizable()
+			.scaledToFit()
+			.symbolRenderingMode(.multicolor)
+			.frame(height: 20)
+		
+		Text(displayedInfo)
+			.fontWeight(.semibold)
+			.padding(3)
+	}
+}
+
+private func showSecondConfiguration(_ title:String, _ bigValue:String) -> some View {
+	VStack{
+		Text(title)
+		
+		Text(bigValue)
+			.font(.title3)
+			.fontWeight(.semibold)
+			.padding(3)
 	}
 }
 
