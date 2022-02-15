@@ -81,7 +81,7 @@ extension WeatherDetailsView {
 				WeatherDetailsViewElement(title: "Wind Speed", image: "wind", displayedInfo: "\(vm.day.windSpeed!)")
 			}
 			HStack{
-				WeatherDetailsViewElement(title: "UV Index", image: "sun.max.fill", displayedInfo: "5")
+				WeatherDetailsViewElement(title: "UV Index", image: "sun.max.fill", displayedInfo: String(vm.day.uvIndex!))
 				WeatherDetailsViewElement(title: "Solar Energy", image: "bolt.fill", displayedInfo: "\(vm.day.solarEnergy!)MWh")
 			}
 		}

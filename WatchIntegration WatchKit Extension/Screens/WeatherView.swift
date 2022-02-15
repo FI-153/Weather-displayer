@@ -74,7 +74,7 @@ extension WeatherView {
 				WeatherDataElement(image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!)Km/h")
 			}
 			HStack(spacing: 15){
-				WeatherDataElement(image: "sun.max.fill", displayedInfo: "5")
+				WeatherDataElement(image: "sun.max.fill", displayedInfo: String(vm.highlightedWeather.uvIndex!))
 				WeatherDataElement(image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!)MWh")
 			}
 		}
