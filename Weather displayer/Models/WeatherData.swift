@@ -64,5 +64,5 @@ struct WeatherData: Identifiable, Decodable, Equatable {
 	}
 	
 	///Mock data to be used during development
-	static let mockData = WeatherData(resolvedAddress: "Address1, b, c", days: Day.mockData)
+	static let mockData = WeatherData(resolvedAddress: "Cazzano Sant'Andrea, Lombardia, Italia", days: Day.mockData)
 }
