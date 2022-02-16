@@ -16,7 +16,7 @@ class DownloadDataManager {
 	///Saves the previous downloaded weather data
 	var previouslyDownloadedData:WeatherData?
 	
-	///Checks if the downloader is downloading Data
+	///Will be false is the downaloader has finished downloading data
 	@Published var isLoading:Bool = true
 	
 	///Singleton instance of the class
@@ -27,6 +27,7 @@ class DownloadDataManager {
 			do{
 				try downloadWeatherData(for: "Cazzano sant'Andrea")
 			}catch let error {
+				isLoading = false
 				print(error)
 			}
 		}
@@ -37,26 +38,17 @@ class DownloadDataManager {
 	
 	///Weather data is downloaded for a specifiec location
 	func downloadWeatherData(for location:String) throws{
-		guard let url = URL(string: createUrlRequest(for: location)) else {
-			throw URLError(.badURL)
-		}
 		
-		isLoading = true
-				
-		URLSession.shared.dataTaskPublisher(for: url)
-			.receive(on: DispatchQueue.main)
-			.tryMap(handleOutput)
-			.decode(type: WeatherData.self, decoder: JSONDecoder())
-			.replaceError(with: previouslyDownloadedData ?? WeatherData.mockData)
-			.sink { [weak self] receivedWeather in
-				
-				guard let self = self else { return }
-				
-				self.downloadedData = 			receivedWeather
-				self.previouslyDownloadedData = 	receivedWeather
-				self.isLoading = 				false
-			}
-			.store(in: &cancellables)
+		do {
+			isLoading = true
+			
+			let url = try createUrl(for: location)
+
+			downloadData(for: url)
+
+		} catch let error{
+			throw error
+		}
 		
 	}
 	
@@ -70,13 +62,44 @@ class DownloadDataManager {
 		return output.data
 	}
 	
-	public func createUrlRequest(for location: String) -> String {
+	///Creates the URL version of the given string
+	public func createUrl(for location: String) throws -> URL{
+		
+		guard let url = URL(string: composeUrlRequest(for: location)) else {
+			throw URLError(.badURL)
+		}
+
+		return url
+	}
+	
+	///Composes an URL request to conform to the API format
+	public func composeUrlRequest(for location: String) -> String {
 		
 		let before 				= "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
 		let after 				= "/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
 		let formattedLocation 	= location.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: .illegalCharacters).filter{ !" \n\t\r".contains($0) }
 		
 		return before + formattedLocation + after
+	}
+	
+	///Downloads the data at the given URL then saves it
+	public func downloadData(for url: URL) {
+		
+		URLSession.shared.dataTaskPublisher(for: url)
+			.receive(on: DispatchQueue.main)
+			.tryMap(handleOutput)
+			.decode(type: WeatherData.self, decoder: JSONDecoder())
+			.replaceError(with: previouslyDownloadedData ?? WeatherData.mockData)
+			.sink { [weak self] receivedWeather in
+				
+				guard let self = self else { return }
+				
+				self.downloadedData = 			receivedWeather
+				self.previouslyDownloadedData = 	self.downloadedData
+				self.isLoading = 				false
+			}
+			.store(in: &cancellables)
+		
 	}
 	
 }

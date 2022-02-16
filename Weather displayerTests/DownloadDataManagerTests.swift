@@ -17,7 +17,7 @@ class DownloadDataManagerTests: XCTestCase {
 		let correctRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Cazzanosant'Andrea/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
 		
 		//When
-		let urlRequest = downloadDataManager.createUrlRequest(for: "Cazzano sant'Andrea")
+		let urlRequest = downloadDataManager.composeUrlRequest(for: "Cazzano sant'Andrea")
 		
 		//Then
 		XCTAssertEqual(urlRequest, correctRequest)
