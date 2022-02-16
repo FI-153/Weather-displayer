@@ -23,5 +23,12 @@ class DownloadDataManagerTests: XCTestCase {
 		XCTAssertEqual(urlRequest, correctRequest)
 		
 	}
-
+	
+	func test_DownloadDataManager_createUrlRequest_() {
+		//Given		
+		//When
+		//then
+		XCTAssertNoThrow(try downloadDataManager.createUrl(for: downloadDataManager.composeUrlRequest(for: "Cazzano sant'Andrea")))
+	}
+	
 }
