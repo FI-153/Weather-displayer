@@ -66,17 +66,15 @@ extension WeatherView {
 	private var detailsView: some View{
 		VStack(spacing: 15){
 			HStack(spacing: 15){
-				WeatherDataElement(title: "Max", bigValue: "10°C")
-				WeatherDataElement(title: "Min", bigValue: "-1°C")
+				WeatherDataElementTile(title: "Max", bigValue: "10°C")
+				WeatherDataElementTile(title: "Min", bigValue: "-1°C")
 			}
-			HStack(spacing: 15){
-				WeatherDataElement(image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!)mm")
-				WeatherDataElement(image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!)Km/h")
-			}
-			HStack(spacing: 15){
-				WeatherDataElement(image: "sun.max.fill", displayedInfo: String(vm.highlightedWeather.uvIndex!))
-				WeatherDataElement(image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!)MWh")
-			}
+			
+			WeatherDataElementPill(title: "Precipitations", image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!) mm")
+			WeatherDataElementPill(title: "Wind speed", image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!) KM/H")
+			WeatherDataElementPill(title: "UV Index", image: "sun.max.fill", displayedInfo: String(vm.highlightedWeather.uvIndex!))
+			WeatherDataElementPill(title: "Solar energy", image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!) MWh")
+
 		}
 	}
 	
