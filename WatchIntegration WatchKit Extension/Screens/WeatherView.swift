@@ -70,10 +70,10 @@ extension WeatherView {
 				WeatherDataElementTile(title: "Min", bigValue: "-1°C")
 			}
 			
-			WeatherDataElementPill(title: "Precipitations", image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!)mm")
-			WeatherDataElementPill(title: "Wind speed", image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!)Km/h")
+			WeatherDataElementPill(title: "Precipitations", image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!) mm")
+			WeatherDataElementPill(title: "Wind speed", image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!) KM/H")
 			WeatherDataElementPill(title: "UV Index", image: "sun.max.fill", displayedInfo: String(vm.highlightedWeather.uvIndex!))
-			WeatherDataElementPill(title: "Solar energy", image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!)MWh")
+			WeatherDataElementPill(title: "Solar energy", image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!) MWh")
 
 		}
 	}
