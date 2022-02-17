@@ -21,6 +21,7 @@ struct WeatherDataElementPill: View {
 				VStack{
 					Text(title!)
 						.font(.subheadline)
+						.minimumScaleFactor(0.8)
 					
 					Spacer()
 					
@@ -41,8 +42,6 @@ struct WeatherDataElementPill: View {
 			
 		}
 		.frame(height: 75)
-		.padding(.horizontal)
-		.padding(.bottom)
 		
     }
 }
