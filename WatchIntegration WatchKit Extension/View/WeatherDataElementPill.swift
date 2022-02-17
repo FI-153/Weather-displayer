@@ -9,35 +9,22 @@ import SwiftUI
 
 struct WeatherDataElementPill: View {
 	
-	var title:String?
-	var image:String?
-	var displayedInfo:String?
+	var title:String
+	var image:String
+	var displayedInfo:String
 	
     var body: some View {
 		ZStack{
 			background
 			
 			HStack{
-				VStack{
-					Text(title!)
-						.font(.subheadline)
-						.minimumScaleFactor(0.8)
-					
-					Spacer()
-					
-					Text(displayedInfo!)
-						.font(.headline)
-				}
+				titleAndDisplayedInfo
 				.padding()
 				
 				Spacer()
 				
-				Image(systemName: image!)
-					.resizable()
-					.scaledToFit()
-					.symbolRenderingMode(.multicolor)
-					.frame(width: 30, height: 30)
-					.padding()
+				imageSection
+					.padding(.trailing)
 			}
 			
 		}
@@ -50,6 +37,27 @@ extension WeatherDataElementPill {
 	private var background: some View {
 		RoundedRectangle(cornerRadius: 10)
 			.fill(Color.secondary.opacity(0.3))
+	}
+	
+	private var titleAndDisplayedInfo: some View{
+		VStack{
+			Text(title)
+				.font(.subheadline)
+				.minimumScaleFactor(0.8)
+			
+			Spacer()
+			
+			Text(displayedInfo)
+				.font(.headline)
+		}
+	}
+	
+	private var imageSection: some View{
+		Image(systemName: image)
+			.resizable()
+			.scaledToFit()
+			.symbolRenderingMode(.multicolor)
+			.frame(width: 30, height: 30)
 	}
 }
 
