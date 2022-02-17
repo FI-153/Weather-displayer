@@ -69,20 +69,11 @@ extension WeatherView {
 				WeatherDataElementTile(title: "Max", bigValue: "10°C")
 				WeatherDataElementTile(title: "Min", bigValue: "-1°C")
 			}
-//			HStack(spacing: 15){
-//				WeatherDataElementTile(image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!)mm")
-//				WeatherDataElementTile(image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!)Km/h")
-//			}
-//			HStack(spacing: 15){
-//				WeatherDataElementTile(image: "sun.max.fill", displayedInfo: String(vm.highlightedWeather.uvIndex!))
-//				WeatherDataElementTile(image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!)MWh")
-//			}
 			
 			WeatherDataElementPill(title: "Precipitations", image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!)mm")
 			WeatherDataElementPill(title: "Wind speed", image: "wind", displayedInfo: "\(vm.highlightedWeather.windSpeed!)Km/h")
 			WeatherDataElementPill(title: "UV Index", image: "sun.max.fill", displayedInfo: String(vm.highlightedWeather.uvIndex!))
 			WeatherDataElementPill(title: "Solar energy", image: "bolt.fill", displayedInfo: "\(vm.highlightedWeather.solarEnergy!)MWh")
-
 
 		}
 	}
