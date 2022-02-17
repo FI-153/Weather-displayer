@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherDataElement: View {
+struct WeatherDataElementTile: View {
 	
 	var title:String?
 	var image:String?
@@ -40,7 +40,7 @@ struct WeatherDataElement: View {
 	}
 }
 
-extension WeatherDataElement {
+extension WeatherDataElementTile {
 	private var background: some View {
 		RoundedRectangle(cornerRadius: 10)
 			.fill(Color.secondary.opacity(0.3))
@@ -78,12 +78,12 @@ struct WeatherDataElement_Previews: PreviewProvider {
 		ScrollView(.vertical) {
 			VStack(spacing: 15){
 				HStack(spacing: 15) {
-					WeatherDataElement(title: "Max", bigValue: "10°C")
-					WeatherDataElement(title: "Min", bigValue: "-1°C")
+					WeatherDataElementTile(title: "Max", bigValue: "10°C")
+					WeatherDataElementTile(title: "Min", bigValue: "-1°C")
 				}
 				HStack(spacing: 15) {
-					WeatherDataElement(title: "Precipitation", image: "cloud.drizzle.fill", displayedInfo: "12 mm")
-					WeatherDataElement(title: "Wind Speed", image: "wind", displayedInfo: "12 Km/h")
+					WeatherDataElementTile(title: "Precipitation", image: "cloud.drizzle.fill", displayedInfo: "12 mm")
+					WeatherDataElementTile(title: "Wind Speed", image: "wind", displayedInfo: "12 Km/h")
 				}
 			}
 		}
