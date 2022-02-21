@@ -98,13 +98,16 @@ class DownloadDataManager {
 				
 				guard let self = self else { return }
 				
-				self.setDownloadedData(to: receivedWeather)
-				self.setPreviouslyDownloadedData(to: receivedWeather)
-				
+				self.saveData(to: receivedWeather)
 				self.isLoading = false
 			}
 			.store(in: &cancellables)
 		
+	}
+	
+	private func saveData(to data: WeatherData){
+		setDownloadedData(to: data)
+		setPreviouslyDownloadedData(to: data)
 	}
 	
 	private func setPreviouslyDownloadedData(to data: WeatherData) {
