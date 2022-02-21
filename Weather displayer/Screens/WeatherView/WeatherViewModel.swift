@@ -24,7 +24,7 @@ class WeatherViewModel: ObservableObject {
 		addSubscriberToIsLoading()
 	}
 	
-	private let downloadDataManager = 	DownloadDataManager.shared
+	private let downloadDataManager = 	DownloadDataManager.getShared()
 	private var cancellables = 			Set<AnyCancellable>()
 	func addSubscriberToWeatherDataArray(){
 		downloadDataManager.$downloadedData.sink { [weak self] receivedWeather in

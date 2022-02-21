@@ -14,6 +14,8 @@ struct CityTextView: View {
 	@Binding var isCityTextViewSelected:Bool
 	var provinceAndCountry:String
 
+	private let downloadDataManager = DownloadDataManager.getShared()
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			Group{
@@ -24,7 +26,7 @@ struct CityTextView: View {
 					.submitLabel(.go)
 					.onSubmit {
 						do {
-							try DownloadDataManager.shared.downloadWeatherData(for: titleText)
+							try downloadDataManager.downloadWeatherData(for: titleText)
 						} catch {
 							
 						}

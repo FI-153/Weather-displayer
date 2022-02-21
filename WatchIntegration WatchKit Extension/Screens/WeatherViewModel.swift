@@ -15,7 +15,7 @@ class WeatherViewModel: ObservableObject {
 	@Published var highlightedWeather:Day = 	Day.mockData.first!
 	@Published var isLoading:Bool = 			true
 	
-	private let downloadDataManager = 	DownloadDataManager.shared
+	private let downloadDataManager = 	DownloadDataManager.getShared()
 	private var cancellables = 			Set<AnyCancellable>()
 	
 	init(){

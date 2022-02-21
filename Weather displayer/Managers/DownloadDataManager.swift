@@ -14,12 +14,12 @@ class DownloadDataManager {
 	@Published var downloadedData:WeatherData = WeatherData.mockData
 	
 	///Saves the previous downloaded weather data
-	var previouslyDownloadedData:WeatherData?
+	private var previouslyDownloadedData:WeatherData?
 	
 	///Will be false is the downaloader has finished downloading data
 	@Published var isLoading:Bool = true
 	
-	///Singleton instance of the class
+	///Singleton instance of the class (refer to it via its getter)
 	static let shared = DownloadDataManager()
 	public init(isForTesting:Bool = false){
 		
@@ -32,6 +32,10 @@ class DownloadDataManager {
 			}
 		}
 		
+	}
+	///Refer to this to get the singleton instance to keep track of the call hierarchy
+	static func getShared() -> DownloadDataManager {
+		return shared
 	}
 	
 	private var cancellables = Set<AnyCancellable>()
@@ -94,12 +98,21 @@ class DownloadDataManager {
 				
 				guard let self = self else { return }
 				
-				self.downloadedData = 			receivedWeather
-				self.previouslyDownloadedData = 	self.downloadedData
-				self.isLoading = 				false
+				self.setDownloadedData(to: receivedWeather)
+				self.setPreviouslyDownloadedData(to: receivedWeather)
+				
+				self.isLoading = false
 			}
 			.store(in: &cancellables)
 		
+	}
+	
+	private func setPreviouslyDownloadedData(to data: WeatherData) {
+		self.previouslyDownloadedData = data
+	}
+	
+	private func setDownloadedData(to data: WeatherData) {
+		self.downloadedData = data
 	}
 	
 }
