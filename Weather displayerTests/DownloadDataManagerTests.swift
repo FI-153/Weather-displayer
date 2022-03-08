@@ -24,7 +24,7 @@ class DownloadDataManagerTests: XCTestCase {
 		
 	}
 	
-	func test_DownloadDataManager_createUrlRequest_() {
+	func test_DownloadDataManager_createUrlRequest_noErrorIsThrown() {
 		//Given		
 		//When
 		//then
