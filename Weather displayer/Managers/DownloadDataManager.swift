@@ -24,11 +24,13 @@ class DownloadDataManager {
 	public init(isForTesting:Bool = false){
 		
 		if !isForTesting {
-			do{
-				try downloadWeatherData(for: "Cazzano sant'Andrea")
-			}catch let error {
-				isLoading = false
-				print(error)
+			Task.init{
+				do{
+					try await downloadWeatherData(for: "Cazzano sant'Andrea")
+				}catch let error {
+					isLoading = false
+					print(error)
+				}
 			}
 		}
 		
@@ -41,7 +43,7 @@ class DownloadDataManager {
 	private var cancellables = Set<AnyCancellable>()
 	
 	///Weather data is downloaded for a specifiec location
-	func downloadWeatherData(for location:String) throws{
+	func downloadWeatherData(for location:String) async throws{
 		
 		do {
 			isLoading = true

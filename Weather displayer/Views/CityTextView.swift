@@ -25,12 +25,15 @@ struct CityTextView: View {
 					.font(.system(size: 35, weight: .bold))
 					.submitLabel(.go)
 					.onSubmit {
-						do {
-							try downloadDataManager.downloadWeatherData(for: titleText)
-						} catch {
-							
-						}
 						isCityTextViewSelected = false
+						
+						Task {
+							do {
+								try await downloadDataManager.downloadWeatherData(for: titleText)
+							} catch let error{
+								print(error.localizedDescription)
+							}
+						}
 					}
 					.onTapGesture {
 						isCityTextViewSelected = true
