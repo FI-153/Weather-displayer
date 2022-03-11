@@ -21,19 +21,15 @@ class DownloadDataManager {
 	
 	///Singleton instance of the class (refer to it via its getter)
 	static let shared = DownloadDataManager()
-	public init(isForTesting:Bool = false){
-		
-		if !isForTesting {
-			Task.init{
-				do{
-					try await downloadWeatherData(for: "Cazzano sant'Andrea")
-				}catch let error {
-					isLoading = false
-					print(error)
-				}
+	private init(){
+		Task(priority: .high){
+			do{
+				try await downloadWeatherData(for: "Cazzano sant'Andrea")
+			}catch let error {
+				isLoading = false
+				print(error)
 			}
 		}
-		
 	}
 	///Refer to this to get the singleton instance to keep track of the call hierarchy
 	static func getShared() -> DownloadDataManager {
@@ -69,7 +65,7 @@ class DownloadDataManager {
 	}
 	
 	///Creates the URL version of the given string
-	public func createUrl(for location: String) throws -> URL{
+	private func createUrl(for location: String) throws -> URL{
 		
 		guard let url = URL(string: composeUrlRequest(for: location)) else {
 			throw URLError(.badURL)
@@ -79,7 +75,7 @@ class DownloadDataManager {
 	}
 	
 	///Composes an URL request to conform to the API format
-	public func composeUrlRequest(for location: String) -> String {
+	private func composeUrlRequest(for location: String) -> String {
 		
 		let before 				= "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
 		let after 				= "/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
@@ -89,7 +85,7 @@ class DownloadDataManager {
 	}
 	
 	///Downloads the data at the given URL then saves it
-	public func downloadData(for url: URL) {
+	private func downloadData(for url: URL) {
 		
 		URLSession.shared.dataTaskPublisher(for: url)
 			.receive(on: DispatchQueue.main)
