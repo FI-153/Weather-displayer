@@ -15,11 +15,8 @@ struct WeatherDetailsView: View {
 		VStack{
 			HStack(spacing: 20){
 				weatherImage
-				
 				titleAndSubtitle
-				
 				dismissButton
-				
 			}
 			.padding()
 			.ignoresSafeArea()
@@ -35,9 +32,9 @@ extension WeatherDetailsView {
 			vm.isSheetShown.toggle()
 		} label: {
 			Image(systemName: "xmark")
-				.font(.system(size: 20, weight: .semibold))
+				.font(.system(size: 20, weight: .bold))
 				.foregroundColor(.primary)
-				.frame(width: 50, height: 50)
+				.frame(width: 40, height: 40)
 				.background(Color.secondary.opacity(0.3))
 				.clipShape(Circle())
 				.shadow(radius: 15)
@@ -51,7 +48,6 @@ extension WeatherDetailsView {
 			.scaledToFit()
 			.frame(width: 110, height: 110)
 			.shadow(radius: 15)
-
 	}
 	
 	private var titleAndSubtitle: some View{
@@ -61,12 +57,11 @@ extension WeatherDetailsView {
 				.bold()
 				.font(.title)
 			
-			//Display subtitle only if present
 			if vm.isSubtitlePresent() {
-				Text(vm.day.conditions![1]!)
+                Text(vm.day.conditions![1]!.capitalized)
 					.font(.title3)
+                    .fontWeight(.semibold)
 			}
-			
 		}
 	}
 	
@@ -85,7 +80,6 @@ extension WeatherDetailsView {
 				WeatherDetailsViewElement(title: "Solar Energy", image: "bolt.fill", displayedInfo: "\(vm.day.solarEnergy!)MWh")
 			}
 		}
-		
 	}
 }
 
