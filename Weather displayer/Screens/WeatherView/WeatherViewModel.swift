@@ -24,30 +24,36 @@ class WeatherViewModel: ObservableObject {
 	}
 	
 	private let downloadDataManager = DownloadDataManager.getShared()
-	private var cancellables = 	Set<AnyCancellable>()
-	func addSubscriberToWeatherDataArray(){
-		downloadDataManager.$downloadedData.sink { [weak self] receivedWeather in
-			
-			guard let self = self else { return }
-			
-			self.titleString = receivedWeather.cityname!
-			self.provinceAndCountry = receivedWeather.provinceAndCountry!
-			self.highlightedWeather = receivedWeather.days!.first!
-			self.nextDays = receivedWeather.days!
-			
-		}
-		.store(in: &cancellables)
+    private var cancellables = 	Set<AnyCancellable>()
+    func addSubscriberToWeatherDataArray(){
+        downloadDataManager
+            .$downloadedData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] receivedWeather in
+                
+                guard let self = self else { return }
+                
+                self.titleString = receivedWeather.cityname!
+                self.provinceAndCountry = receivedWeather.provinceAndCountry!
+                self.highlightedWeather = receivedWeather.days!.first!
+                self.nextDays = receivedWeather.days!
+                
+            }
+            .store(in: &cancellables)
 	}
-	
-	private func addSubscriberToIsLoading(){
-		downloadDataManager.$isLoading.sink { [weak self] isLoading in
-			guard let self = self else { return }
-			
-			self.isLoading = isLoading
-		}
-		.store(in: &cancellables)
-	}
-	
+    
+    private func addSubscriberToIsLoading(){
+        downloadDataManager
+            .$isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                guard let self = self else { return }
+                
+                self.isLoading = isLoading
+            }
+            .store(in: &cancellables)
+    }
+    
 	func setTodaysWeather(to day : Day) {
 		self.highlightedWeather = day
 	}

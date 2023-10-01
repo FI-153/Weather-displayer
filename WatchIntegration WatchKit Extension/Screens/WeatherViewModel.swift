@@ -24,34 +24,40 @@ class WeatherViewModel: ObservableObject {
 	}
 	
 	func addSubscriberToWeatherData(){
-		downloadDataManager.$downloadedData.sink { [weak self] receivedWeather in
-			
-			guard let self = self else { return }
-			
-            if
-                let cityname = receivedWeather.cityname,
-                let provinceAndCountry = receivedWeather.provinceAndCountry,
-                let days = receivedWeather.days
-            {
-                self.cityname = 			cityname
-                self.provinceAndCountry = 	provinceAndCountry
-                self.highlightedWeather =	days.first!
-            } else {
-                self.cityname =             "Network error"
-                self.provinceAndCountry =   "Network error"
+        downloadDataManager
+            .$downloadedData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] receivedWeather in
+                
+                guard let self = self else { return }
+                
+                if
+                    let cityname = receivedWeather.cityname,
+                    let provinceAndCountry = receivedWeather.provinceAndCountry,
+                    let days = receivedWeather.days
+                {
+                    self.cityname = 			cityname
+                    self.provinceAndCountry = 	provinceAndCountry
+                    self.highlightedWeather =	days.first!
+                } else {
+                    self.cityname =             "Network error"
+                    self.provinceAndCountry =   "Network error"
+                }
+                
             }
-
-		}
 		.store(in: &cancellables)
 	}
 
 	private func addSubscriberToIsLoading(){
-		downloadDataManager.$isLoading.sink { [weak self] isLoading in
-			guard let self = self else { return }
-			
-			self.isLoading = isLoading
-		}
-		.store(in: &cancellables)
-	}
-
+		downloadDataManager
+            .$isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                guard let self = self else { return }
+                
+                self.isLoading = isLoading
+            }
+            .store(in: &cancellables)
+    }
+    
 }
