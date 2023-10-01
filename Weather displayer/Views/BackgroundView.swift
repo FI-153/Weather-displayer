@@ -5,7 +5,6 @@
 //  Created by Federico Imberti on 02/02/22.
 //
 
-import Foundation
 import SwiftUI
 
 struct BackgroundView: View {
@@ -15,6 +14,12 @@ struct BackgroundView: View {
 						startPoint: .topLeading,
 						endPoint: .bottomTrailing
 		)
-			.ignoresSafeArea()
+        .ignoresSafeArea()
 	}
+}
+
+struct BackgroundView_previews: PreviewProvider {
+    static var previews: some View {
+        BackgroundView()
+    }
 }
