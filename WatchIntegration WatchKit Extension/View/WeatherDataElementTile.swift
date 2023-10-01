@@ -15,7 +15,6 @@ struct WeatherDataElementTile: View {
 	var body: some View {
 		ZStack {
 			background
-			
 			showSecondConfiguration(title, bigValue)
 		}
 		
@@ -31,24 +30,26 @@ extension WeatherDataElementTile {
 }
 
 private func showSecondConfiguration(_ title:String, _ bigValue:String) -> some View {
-	VStack{
+    VStack(spacing: 2){
 		Text(title)
-		
+        
 		Text(bigValue)
 			.font(.title3)
 			.fontWeight(.semibold)
-			.padding(3)
 	}
 }
 
 struct WeatherDataElement_Previews: PreviewProvider {
 	static var previews: some View {
-		ScrollView(.vertical) {
-			HStack(spacing: 15) {
-				WeatherDataElementTile(title: "Max", bigValue: "10°C")
-				WeatherDataElementTile(title: "Min", bigValue: "-1°C")
-			}
-		}
+        ZStack {
+            BackgroundView()
+            ScrollView(.vertical) {
+                HStack(spacing: 15) {
+                    WeatherDataElementTile(title: "Max", bigValue: "10°C")
+                    WeatherDataElementTile(title: "Min", bigValue: "-1°C")
+                }
+            }
+        }
 		
 	}
 }

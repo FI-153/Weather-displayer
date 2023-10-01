@@ -11,6 +11,7 @@
 		A11A44C427B85A9F00094284 /* DayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A44C327B85A9F00094284 /* DayTests.swift */; };
 		A11A44C727B85F1A00094284 /* WeatherDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A44C627B85F1A00094284 /* WeatherDetailsViewModel.swift */; };
 		A11A44C927B866E600094284 /* DownloadDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A44C827B866E600094284 /* DownloadDataManagerTests.swift */; };
+		A16E59DC2AC9A55200527E00 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175F2C827AAC9FC0085C17D /* BackgroundView.swift */; };
 		A175F2C327AAC9450085C17D /* WeatherDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175F2C227AAC9450085C17D /* WeatherDayView.swift */; };
 		A175F2C527AAC9880085C17D /* CityTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175F2C427AAC9880085C17D /* CityTextView.swift */; };
 		A175F2C727AAC9BF0085C17D /* MainWeatherIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175F2C627AAC9BF0085C17D /* MainWeatherIconView.swift */; };
@@ -506,6 +507,7 @@
 			files = (
 				A1A87ABC27BC24AC0086807B /* WeatherData.swift in Sources */,
 				A1A87AC427BC2D380086807B /* WeatherDataElementTile.swift in Sources */,
+				A16E59DC2AC9A55200527E00 /* BackgroundView.swift in Sources */,
 				A1A87ABD27BC24AC0086807B /* Day.swift in Sources */,
 				A1A87ABE27BC24AC0086807B /* WeatherIcons.swift in Sources */,
 				A1CC748F27BEEB99000A97EA /* WeatherDataElementPill.swift in Sources */,
