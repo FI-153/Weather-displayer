@@ -16,11 +16,8 @@ struct WeatherView: View {
 			ScrollView(.vertical){
 				VStack (spacing: 15){
 					titleView
-					
+                    mainIcon
 					weatherDescription
-					
-					mainIcon
-					
 					detailsView
 				}
 			}
@@ -53,11 +50,13 @@ extension WeatherView {
 	private var weatherDescription: some View{
 		Text("\" \(vm.highlightedWeather.description!) \"")
 			.font(.subheadline)
+            .fontWeight(.semibold)
 			.foregroundColor(.secondary)
 	}
 	
 	private var mainIcon: some View{
 		Image(systemName: vm.highlightedWeather.icon!)
+            .symbolRenderingMode(.multicolor)
 			.resizable()
 			.scaledToFit()
 			.frame(height: 60)
@@ -66,8 +65,8 @@ extension WeatherView {
 	private var detailsView: some View{
 		VStack(spacing: 15){
 			HStack(spacing: 15){
-				WeatherDataElementTile(title: "Max", bigValue: "10°C")
-				WeatherDataElementTile(title: "Min", bigValue: "-1°C")
+                WeatherDataElementTile(title: "Max", bigValue: "\(vm.highlightedWeather.tempMax!)")
+				WeatherDataElementTile(title: "Min", bigValue: "\(vm.highlightedWeather.tempMin!)")
 			}
 			
 			WeatherDataElementPill(title: "Precipitations", image: "cloud.drizzle.fill", displayedInfo: "\(vm.highlightedWeather.precip!) mm")

@@ -28,9 +28,18 @@ class WeatherViewModel: ObservableObject {
 			
 			guard let self = self else { return }
 			
-			self.cityname = 			receivedWeather.cityname!
-			self.provinceAndCountry = 	receivedWeather.provinceAndCountry!
-			self.highlightedWeather =	receivedWeather.days!.first!
+            if
+                let cityname = receivedWeather.cityname,
+                let provinceAndCountry = receivedWeather.provinceAndCountry,
+                let days = receivedWeather.days
+            {
+                self.cityname = 			cityname
+                self.provinceAndCountry = 	provinceAndCountry
+                self.highlightedWeather =	days.first!
+            } else {
+                self.cityname =             "Network error"
+                self.provinceAndCountry =   "Network error"
+            }
 
 		}
 		.store(in: &cancellables)
