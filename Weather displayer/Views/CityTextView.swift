@@ -19,6 +19,7 @@ struct CityTextView: View {
         VStack(alignment: .leading) {
             cityNameView
             provinceAndCountryView
+                .blur(radius: isCityTextViewSelected ? 20 : 0)
         }
         .minimumScaleFactor(0.9)
         .foregroundColor(.white)
@@ -33,7 +34,7 @@ extension CityTextView {
             .textFieldStyle(.plain)
             .keyboardType(.asciiCapable)
             .font(.system(size: 35, weight: .bold))
-            .submitLabel(.go)
+            .submitLabel(.search)
             .onSubmit {
                 isCityTextViewSelected = false
                 

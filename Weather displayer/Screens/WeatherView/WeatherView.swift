@@ -26,8 +26,10 @@ struct WeatherView: View {
                 }
                 .blur(radius: vm.blurRadiusForchangingCity)
             }
+#if !DEBUG
             .blur(radius: vm.blurRadiusForLoading)
             .disabled(vm.isUiDisabled)
+#endif
             .sheet(isPresented: $vm.isSheetShown) {
                 weatherDetailsView
             }
@@ -113,7 +115,7 @@ extension WeatherView {
                 Button {
                     
                 } label: {
-                    Image(systemName: "location")
+                    Image(systemName: "location.fill")
                 }
             }
             .buttonStyle(.bordered)
