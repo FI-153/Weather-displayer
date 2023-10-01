@@ -26,8 +26,9 @@ struct WeatherData: Identifiable, Decodable, Equatable {
 	
 	init(resolvedAddress:String, days:[Day]){
 		self.resolvedAddress =      resolvedAddress
-		self.cityname =             extractCityName(from: resolvedAddress)
-		self.provinceAndCountry =   extractProvinceAndCountry(from: resolvedAddress)
+        let parsedAddress = extractCityProvinceAndCountry(from: resolvedAddress)
+        self.cityname =             parsedAddress.city
+        self.provinceAndCountry =   parsedAddress.province + parsedAddress.country
 		self.days =                 days
 	}
 	
@@ -35,33 +36,34 @@ struct WeatherData: Identifiable, Decodable, Equatable {
 		do {
 			let container = 			try decoder.container(keyedBy: CodingKeys.self)
 			self.resolvedAddress = 		try container.decode(String.self, forKey: CodingKeys.resolvedAddress)
-			self.cityname =			    extractCityName(from: resolvedAddress!)
-			self.provinceAndCountry = 	extractProvinceAndCountry(from: resolvedAddress!)
+            let parsedAddress =         extractCityProvinceAndCountry(from: resolvedAddress!)
+            self.cityname =             parsedAddress.city
+            self.provinceAndCountry =   parsedAddress.province + parsedAddress.country
 			self.days = 				try container.decode([Day].self, forKey: CodingKeys.days)
 		}catch let error {
 			print(error)
 		}
 	}
-	
-	func extractProvinceAndCountry(from address: String) -> String {
-		let separatedAddress = address.components(separatedBy: ", ")
-		
-		if !separatedAddress.isEmpty {
-			return separatedAddress[1] + ", " + separatedAddress[2]
-		}
-		
-		return ""
-	}
-	
-	func extractCityName(from address: String) -> String {
-		let separatedAddress = address.components(separatedBy: ", ")
-		
-		if !separatedAddress.isEmpty {
-			return separatedAddress[0]
-		}
-		
-		return ""
-	}
+	    
+    /**
+     Returns the city, province and country from the given address as a tuple
+     - Parameter address: address to parse
+     - Returns: city, province and country of the given string. Country is preceded by a space and comma
+     */
+    func extractCityProvinceAndCountry(from address: String) -> (city: String, province: String, country: String) {
+        let separatedAddress = address.components(separatedBy: ", ")
+        
+        switch separatedAddress.count {
+        case 3:
+            return (separatedAddress[0], separatedAddress[1], ", " + separatedAddress[2])
+        case 2:
+            return (separatedAddress[0], separatedAddress[1], "")
+        case 1:
+            return (separatedAddress[0], "", "")
+        default:
+            return ("", "", "")
+        }
+    }
 	
 	///Mock data to be used during development
 	static let mockData = WeatherData(resolvedAddress: "MockCityName, MockRegion, MockCountry", days: Day.mockData)
