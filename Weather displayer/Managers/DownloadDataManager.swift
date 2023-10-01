@@ -10,18 +10,24 @@ import Combine
 
 class DownloadDataManager {
 	
-	///Publishes all downloaded locations
-	@Published var downloadedData:WeatherData = WeatherData.mockData
+	///Publishes all downloaded locations. Initilised to mock data.
+	@Published var downloadedData:WeatherData
 	
-	///Saves the previous downloaded weather data
+	///Stores the previous downloaded weather data
 	private var previouslyDownloadedData:WeatherData?
 	
-	///Will be false is the downaloader has finished downloading data
-	@Published var isLoading:Bool = true
+	///Describes if a download is in progress
+	@Published var isLoading:Bool
+    
+    private var cancellables:Set<AnyCancellable>
 	
-	///Singleton instance of the class (refer to it via its getter)
-	static let shared = DownloadDataManager()
+	///Singleton instance of the class
+	private static let shared = DownloadDataManager()
 	private init(){
+        self.isLoading =      true
+        self.downloadedData = WeatherData.mockData
+        self.cancellables =   Set<AnyCancellable>()
+        
 		Task(priority: .high){
 			do{
 				try await downloadWeatherData(for: "Cazzano sant'Andrea")
@@ -36,32 +42,28 @@ class DownloadDataManager {
 		return shared
 	}
 	
-	private var cancellables = Set<AnyCancellable>()
 	
-	///Weather data is downloaded for a specifiec location
+	///Downloads weather data for a specifiec location
 	func downloadWeatherData(for location:String) async throws{
-		
 		do {
 			isLoading = true
-			
 			let url = try createUrl(for: location)
-
 			downloadData(for: url)
-
 		} catch let error{
 			throw error
 		}
-		
 	}
 	
 	///Handles the output from the downloader
 	private func handleOutput(output:URLSession.DataTaskPublisher.Output) throws -> Data {
 		guard
 			let response = output.response as? HTTPURLResponse,
-			response.statusCode >= 200 && response.statusCode < 300 else {
-				throw URLError(.badServerResponse)
-			}
-		return output.data
+			response.statusCode >= 200 && response.statusCode < 300 
+        else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return output.data
 	}
 	
 	///Creates the URL version of the given string
@@ -79,15 +81,19 @@ class DownloadDataManager {
 		
 		let before 				= "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
 		let after 				= "/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
-		let formattedLocation 	= location.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: .illegalCharacters).filter{ !" \n\t\r".contains($0) }
+        let formattedLocation 	= location
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .trimmingCharacters(in: .illegalCharacters)
+            .filter{ !" \n\t\r".contains($0) }
 		
 		return before + formattedLocation + after
 	}
 	
-	///Downloads the data at the given URL then saves it
+	///Downloads the data at the given URL through a URLSession then saves it
 	private func downloadData(for url: URL) {
 		
-		URLSession.shared.dataTaskPublisher(for: url)
+		URLSession.shared
+            .dataTaskPublisher(for: url)
 			.receive(on: DispatchQueue.main)
 			.tryMap(handleOutput)
 			.decode(type: WeatherData.self, decoder: JSONDecoder())
@@ -95,25 +101,11 @@ class DownloadDataManager {
 			.sink { [weak self] receivedWeather in
 				
 				guard let self = self else { return }
-				
-				self.saveData(to: receivedWeather)
+                
+                self.previouslyDownloadedData = downloadedData
+                self.downloadedData = receivedWeather
 				self.isLoading = false
 			}
 			.store(in: &cancellables)
-		
 	}
-	
-	private func saveData(to data: WeatherData){
-		setDownloadedData(to: data)
-		setPreviouslyDownloadedData(to: data)
-	}
-	
-	private func setPreviouslyDownloadedData(to data: WeatherData) {
-		self.previouslyDownloadedData = data
-	}
-	
-	private func setDownloadedData(to data: WeatherData) {
-		self.downloadedData = data
-	}
-	
 }
