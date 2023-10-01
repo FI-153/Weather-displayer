@@ -14,7 +14,7 @@ struct WeatherView: View {
         ZStack {
             BackgroundView()
             
-            VStack{
+            ScrollView{
                 Spacer()
                 cityNameView
                 Group {
