@@ -5,64 +5,48 @@
 //  Created by Federico Imberti on 11/02/22.
 //
 
-import Foundation
-import UIKit
+import SwiftUI
 
 struct Day: Identifiable, Decodable, Equatable {
 	
 	let id = UUID()
 	
 	///Date of the forecast, format dd/mm
-	var datetime:		String?
+	var datetime: String?
 	
 	///Avg temperature during the day
-	var temp:			Float?
+	var temp: Float?
 	
 	///Chances of precipitations
 	var precipProb:	Float?
 	
 	///Icon to be displayed (see WeatherDataIcons)
-	var icon:			String?
+	var icon: String?
 	
 	///Description of the day's weather
-	var description:	String?
+	var description: String?
 	
 	///Mamimum temperature
-	var tempMax:		Float?
+	var tempMax: Float?
 	
 	///Minimum temperatiure
-	var tempMin:		Float?
+	var tempMin: Float?
 	
 	///Short desctiption of the conditions, [0] is always present while [1] can sometimes not be present
 	var conditions:	[String?]?
 	
 	///Wind speed in Km/h
-	var windSpeed:		Float?
+	var windSpeed: Float?
 	
 	///Amount of precipitation in mm
-	var precip:		Float?
+	var precip: Float?
 	
 	///Solar energy in MWh
-	var solarEnergy:	Float?
+	var solarEnergy: Float?
 	
 	///UV index value
-	var uvIndex:		Int?
-	
-	private init(datetime: String, temp: Float, precipProb: Float, icon: String, description: String, tempMax: Float, tempMin: Float, conditions: String, windSpeed: Float, precip: Float, solarEnergy:Float, uvIndex: Int?) {
-		self.datetime = 	extractDate(date: datetime)
-		self.temp = 		temp
-		self.precipProb = 	precipProb
-		self.icon =		WeatherIcons.icons[icon]
-		self.description =	description
-		self.tempMax = tempMax
-		self.tempMin = tempMin
-		self.conditions = extractConditions(from: conditions)
-		self.windSpeed = windSpeed
-		self.precip = precip
-		self.solarEnergy = solarEnergy
-		self.uvIndex = uvIndex
-	}
-	
+	var uvIndex: Int?
+		
 	private enum CodingKeys: String, CodingKey {
 		case datetime, temp, precipprob, icon, description, tempmax, tempmin, conditions, windspeed, precip, solarenergy, uvindex
 	}
@@ -71,26 +55,25 @@ struct Day: Identifiable, Decodable, Equatable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		do {
-			self.datetime =	extractDate(date: try container.decode(String.self, forKey: CodingKeys.datetime))
+			self.datetime =	    extractDate(date: try container.decode(String.self, forKey: CodingKeys.datetime))
 			self.temp = 		try container.decode(Float.self, forKey: CodingKeys.temp)
 			self.precipProb = 	try container.decode(Float.self, forKey: CodingKeys.precipprob)
-			self.icon =		WeatherIcons.icons[try container.decode(String.self, forKey: CodingKeys.icon)]
-			self.description = try container.decode(String.self, forKey: CodingKeys.description)
+			self.icon =		    WeatherIcons.icons[try container.decode(String.self, forKey: CodingKeys.icon)]
+			self.description =  try container.decode(String.self, forKey: CodingKeys.description)
 			self.tempMax =		try container.decode(Float.self, forKey: CodingKeys.tempmax)
-			self.tempMin = 	try container.decode(Float.self, forKey: CodingKeys.tempmin)
+			self.tempMin = 	    try container.decode(Float.self, forKey: CodingKeys.tempmin)
 			self.conditions =	extractConditions(from: try container.decode(String.self, forKey: CodingKeys.conditions))
 			self.windSpeed = 	try container.decode(Float.self, forKey: CodingKeys.windspeed)
-			self.precip = 	try container.decode(Float.self, forKey: CodingKeys.precip)
-			self.solarEnergy = try container.decode(Float.self, forKey: CodingKeys.solarenergy)
-			self.uvIndex = 	try container.decode(Int.self, forKey: CodingKeys.uvindex)
+			self.precip = 	    try container.decode(Float.self, forKey: CodingKeys.precip)
+			self.solarEnergy =  try container.decode(Float.self, forKey: CodingKeys.solarenergy)
+			self.uvIndex = 	    try container.decode(Int.self, forKey: CodingKeys.uvindex)
 		}catch let error {
 			print(error)
 		}
 	}
 	
-	func extractDate(date: String) -> String{
+	func extractDate(date: String) -> String {
 		let separatedDate = date.components(separatedBy: "-")
-		
 		return separatedDate[2] + "/" + separatedDate[1]
 	}
 	
@@ -100,8 +83,24 @@ struct Day: Identifiable, Decodable, Equatable {
 	}
 	
 	static func == (lhs: Day, rhs: Day) -> Bool {
-		return lhs.id == rhs.id && lhs.id == rhs.id
+		return lhs.id == rhs.id
 	}
+    
+    ///Only used to initiliase mock data
+    private init(datetime: String, temp: Float, precipProb: Float, icon: String, description: String, tempMax: Float, tempMin: Float, conditions: String, windSpeed: Float, precip: Float, solarEnergy:Float, uvIndex: Int?) {
+        self.datetime =     extractDate(date: datetime)
+        self.temp =         temp
+        self.precipProb =     precipProb
+        self.icon =            WeatherIcons.icons[icon]
+        self.description =    description
+        self.tempMax =      tempMax
+        self.tempMin =      tempMin
+        self.conditions =   extractConditions(from: conditions)
+        self.windSpeed =    windSpeed
+        self.precip =       precip
+        self.solarEnergy =  solarEnergy
+        self.uvIndex =      uvIndex
+    }
 	
 	///Mock data to be used during development
 	static let mockData = [
