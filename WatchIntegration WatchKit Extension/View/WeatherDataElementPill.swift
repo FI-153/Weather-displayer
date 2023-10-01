@@ -17,14 +17,10 @@ struct WeatherDataElementPill: View {
 		ZStack{
 			background
 			
-			HStack{
+            HStack{
 				titleAndDisplayedInfo
-				.padding()
-				
-				Spacer()
-				
+                Spacer()
 				imageSection
-					.padding(.trailing)
 			}
 			
 		}
@@ -40,16 +36,15 @@ extension WeatherDataElementPill {
 	}
 	
 	private var titleAndDisplayedInfo: some View{
-		VStack{
+        VStack(alignment: .leading, spacing: 5){
 			Text(title)
 				.font(.subheadline)
-				.minimumScaleFactor(0.8)
-			
-			Spacer()
-			
+                .foregroundStyle(.secondary)
+						
 			Text(displayedInfo)
 				.font(.headline)
 		}
+        .padding(.leading)
 	}
 	
 	private var imageSection: some View{
@@ -58,15 +53,19 @@ extension WeatherDataElementPill {
 			.scaledToFit()
 			.symbolRenderingMode(.multicolor)
 			.frame(width: 30, height: 30)
+            .padding(.trailing)
 	}
 }
 
 
 struct WeatherDataElementPill_Previews: PreviewProvider {
     static var previews: some View {
-		ScrollView{
-			WeatherDataElementPill(title: "Precipitation", image: "cloud.drizzle.fill", displayedInfo: "12 mm")
-			WeatherDataElementPill(title: "Wind Speed", image: "wind", displayedInfo: "12 KM/H")
-		}
+        ZStack {
+            BackgroundView()
+            VStack{
+                WeatherDataElementPill(title: "Precipitations", image: "cloud.drizzle.fill", displayedInfo: "12 mm")
+                WeatherDataElementPill(title: "Wind Speed", image: "wind", displayedInfo: "12 Km/h")
+            }
+        }
     }
 }
