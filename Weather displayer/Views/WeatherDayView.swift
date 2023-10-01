@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct WeatherDayView: View {
-	var dayOfWeek:			String
-	var imageName:			String
-	var temperature:		Float
+	var dayOfWeek: String
+	var imageName: String
+	var temperature: Float
 	var precipitaionChance:	Float
 	
 	var isSelected:Bool? = false
@@ -21,30 +21,11 @@ struct WeatherDayView: View {
 				
 			Color.secondary.opacity(isSelected! ? 0.4 : 0.2)
 			
-			VStack{
-				Text(self.dayOfWeek)
-					.font(.title3)
-					.fontWeight(.semibold)
-					.foregroundColor(.white)
-				
-				Image(systemName: self.imageName)
-					.symbolRenderingMode(.multicolor)
-					.resizable()
-					.aspectRatio(contentMode: .fit)
-					.frame(width: 40, height: 40)
-				
-				Text(String(self.temperature) + "°C")
-					.font(.title2)
-					.foregroundColor(.white)
-				
-				VStack{
-					if precipitaionChance > 0 {
-						Text(String(Int(self.precipitaionChance)) + "%")
-							.font(.headline)
-							.foregroundColor(.secondary)
-					}
-				}
-				.frame(height: 20)
+            VStack{
+				dayOfWeekView
+                dayConditionsImageView
+                temperatureView
+                precipitationChanceView
 			}
 		}
 		.frame(width: 100, height: 180)
@@ -52,65 +33,69 @@ struct WeatherDayView: View {
 	}
 }
 
+extension WeatherDayView {
+    private var dayOfWeekView: some View {
+        Text(self.dayOfWeek)
+            .font(.title3)
+            .fontWeight(.semibold)
+            .foregroundColor(.white)
+    }
+    
+    private var dayConditionsImageView: some View{
+        Image(systemName: self.imageName)
+            .symbolRenderingMode(.multicolor)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 40, height: 40)
+    }
+    
+    private var temperatureView: some View{
+        Text(String(self.temperature) + "°C")
+            .font(.title2)
+            .foregroundColor(.white)
+    }
+    
+    private var precipitationChanceView: some View{
+        VStack{
+            if precipitaionChance > 0 {
+                Text(String(Int(self.precipitaionChance)) + "%")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .frame(height: 20)
+    }
+}
+
+
 struct WeatherDayView_Previews: PreviewProvider {
 	static var previews: some View {
-		Group {
-			ZStack {
-				BackgroundView()
-				
-				ScrollView(.horizontal, showsIndicators: false){
-					HStack{
-						ForEach(Day.mockData){ day in
-							
-							if
-								let dayOfTheWeek =	day.datetime,
-								let imageName = 		day.icon,
-								let temperature = 	day.temp,
-								let precipitation = 	day.precipProb
-							{
-								WeatherDayView(
-									dayOfWeek: 		dayOfTheWeek,
-									imageName: 		imageName,
-									temperature: 		temperature,
-									precipitaionChance:	precipitation,
-									isSelected: 		false
-								)
-							}
-							
-						}
-					}
-				}
-				.padding(.horizontal)
-			}
-			
-			ZStack {
-				BackgroundView()
-				
-				ScrollView(.horizontal, showsIndicators: false){
-					HStack{
-						ForEach(Day.mockData){ day in
-							
-							if
-								let dayOfTheWeek =	day.datetime,
-								let conditions = 	day.icon,
-								let temperature = 	day.temp,
-								let precipitation = 	day.precipProb
-							{
-								WeatherDayView(
-									dayOfWeek: dayOfTheWeek,
-									imageName: WeatherIcons.icons[conditions] ?? "",
-									temperature: temperature,
-									precipitaionChance: precipitation,
-									isSelected: false
-								)
-							}
-							
-						}
-					}
-				}
-				.padding(.horizontal)
-			}
-			.preferredColorScheme(.dark)
-		}
-	}
+        ZStack {
+            BackgroundView()
+            
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack{
+                    ForEach(Day.mockData){ day in
+                        
+                        if
+                            let dayOfTheWeek =	day.datetime,
+                            let imageName = 		day.icon,
+                            let temperature = 	day.temp,
+                            let precipitation = 	day.precipProb
+                        {
+                            WeatherDayView(
+                                dayOfWeek: 		dayOfTheWeek,
+                                imageName: 		imageName,
+                                temperature: 		temperature,
+                                precipitaionChance:	precipitation,
+                                isSelected: 		false
+                            )
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
 }
