@@ -12,21 +12,25 @@ struct WeatherView: View {
 	@StateObject private var vm = WeatherViewModel()
 	
 	var body: some View {
-		ZStack{
-			ScrollView(.vertical){
-				VStack (spacing: 15){
-					titleView
-                    mainIcon
-					weatherDescription
-					detailsView
-				}
-			}
-			
-			if vm.isLoading {
-				loadingView
-			}
-		}
-		.padding(.horizontal)
+        ZStack{
+            BackgroundView()
+            
+            ZStack{
+                ScrollView(.vertical){
+                    VStack (spacing: 15){
+                        titleView
+                        mainIcon
+                        weatherDescription
+                        detailsView
+                    }
+                }
+                
+                if vm.isLoading {
+                    loadingView
+                }
+            }
+            .padding(.horizontal)
+        }
 	}
 }
 
