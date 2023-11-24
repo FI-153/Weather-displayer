@@ -30,7 +30,7 @@ class DownloadDataManager {
         
 		Task(priority: .high){
 			do{
-				try await downloadWeatherData(for: "Cazzano sant'Andrea")
+				try await downloadWeatherData(for: "Dalmine")
 			}catch let error {
 				isLoading = false
 				print(error)
@@ -79,14 +79,13 @@ class DownloadDataManager {
 	///Composes an URL request to conform to the API format
 	private func composeUrlRequest(for location: String) -> String {
 		
-		let before 				= "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
-		let after 				= "/next7days?unitGroup=metric&include=days&key=AZSUM3BTUUFQD2FRU4T8ZR6MQ&contentType=json"
-        let formattedLocation 	= location
+        let base = "https://zenweatherproxy.onrender.com/getWeather?location="
+        let formattedLocation = location
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .trimmingCharacters(in: .illegalCharacters)
             .filter{ !" \n\t\r".contains($0) }
 		
-		return before + formattedLocation + after
+        return base.appending(formattedLocation)
 	}
 	
 	///Downloads the data at the given URL through a URLSession then saves it
